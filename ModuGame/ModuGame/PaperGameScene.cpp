@@ -4,6 +4,7 @@
 #include "UIManager.h"
 #include "ResoucesManager.h"
 #include <Windows.h>
+#include <string>
 #include "defines.h"
 
 PaperGameScene::PaperGameScene()
@@ -11,9 +12,13 @@ PaperGameScene::PaperGameScene()
 	m_fNextSceTime = 0.0f;
 	m_bLoading = false;
 	m_bStart = false;
-	m_bMovable = true;
-
+	m_bMoveing = false;
+	m_bGamePlay = false;
+	m_bSame = true;
+	m_iScore = 0;
+	m_iPaperPoint = 90;
 	m_fMoveSpeed = 500;
+	m_iFeverGauge = 0;
 }
 
 PaperGameScene::~PaperGameScene()
@@ -39,6 +44,8 @@ void PaperGameScene::Init(HWND hWnd)
 	m_pColor[YELLOW] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\ColoredPaperYellow.bmp");
 
 
+	m_pScore = new JEngine::Label();
+	m_pPaperPoint = new JEngine::Label();
 
 	JEngine::UIManager::GetInstance()->AddButton(CLIENT_SIZE_WIDTH * 0.212, CLIENT_SIZE_HEIGHT * 0.846, "res\\check00.bmp", std::bind(&PaperGameScene::OnSelectCheck, this));
 
@@ -52,22 +59,29 @@ void PaperGameScene::Init(HWND hWnd)
 
 bool PaperGameScene::Input(float fETime)
 {
-	if (JEngine::InputManager::GetInstance()->isKeyDown(VK_UP)) 
+	if (!m_bMoveing)
 	{
-		m_pTurnPaper[NOW]->m_eDirection = UP;
+		if (JEngine::InputManager::GetInstance()->isKeyDown(VK_UP))
+		{
+			m_pTurnPaper[NOW]->m_eDirection = UP;
+			m_bMoveing = true;
 
-	}
-	else if (JEngine::InputManager::GetInstance()->isKeyDown(VK_DOWN)) 
-	{
-		m_pTurnPaper[NOW]->m_eDirection = DOWN;
-	}
-	else if (JEngine::InputManager::GetInstance()->isKeyDown(VK_LEFT)) 
-	{
-		m_pTurnPaper[NOW]->m_eDirection = RIGHT;
-	}
-	else if (JEngine::InputManager::GetInstance()->isKeyDown(VK_RIGHT)) 
-	{
-		m_pTurnPaper[NOW]->m_eDirection = RIGHT;
+		}
+		else if (JEngine::InputManager::GetInstance()->isKeyDown(VK_DOWN))
+		{
+			m_pTurnPaper[NOW]->m_eDirection = DOWN;
+			m_bMoveing = true;
+		}
+		else if (JEngine::InputManager::GetInstance()->isKeyDown(VK_LEFT))
+		{
+			m_pTurnPaper[NOW]->m_eDirection = LEFT;
+			m_bMoveing = true;
+		}
+		else if (JEngine::InputManager::GetInstance()->isKeyDown(VK_RIGHT))
+		{
+			m_pTurnPaper[NOW]->m_eDirection = RIGHT;
+			m_bMoveing = true;
+		}
 	}
 	return false;
 }
@@ -75,18 +89,67 @@ bool PaperGameScene::Input(float fETime)
 
 void PaperGameScene::Update(float fETime)
 {
-	SlidePaper(fETime);
+	static int MovableCount = 0;
+
+	if (m_bStart)
+	{
+		m_fNextSceTime += fETime;
+		m_LoadingSc.Update(fETime);
+		if (m_fNextSceTime > 3.0f)
+		{
+			m_fNextSceTime = 0.0f;
+			m_bStart = false;
+			m_bGamePlay = true;
+		}
+	}
+
+	if (m_bGamePlay)
+	{
+		
+		if (m_bMoveing)
+		{
+				SlidePaper(fETime);
+		}
+		else
+		{
+			if (!m_bSame)
+			{
+				m_fNextSceTime += fETime;
+				NotSameMotion(fETime);
+				if (m_fNextSceTime > 0.5f)
+				{
+					m_fNextSceTime = 0.0f;
+					m_bSame = true;
+					m_pTurnPaper[NOW]->m_fPaperX = 150.0f;
+					m_pTurnPaper[NOW]->m_fPaperY = 300.0f;
+				}
+			}
+		}
+	}
+
 }
 
 void PaperGameScene::Draw(HDC hdc)
 {
-	if (m_bStart)
+
+	if (m_bGamePlay)
 	{
 		m_pBack->DrawBitblt(0, 0);
+
+		m_pScore->Init(to_string(m_iScore), CLIENT_SIZE_WIDTH * 0.48, CLIENT_SIZE_HEIGHT * 0.03, DT_CENTER | DT_WORDBREAK);
+		m_pScore->Draw();
+
 		m_pColor[m_pTurnPaper[NEXT]->m_eColor]->Draw(m_pTurnPaper[NEXT]->m_fPaperX, m_pTurnPaper[NEXT]->m_fPaperY);
 		m_pColor[m_pTurnPaper[NOW]->m_eColor]->Draw(m_pTurnPaper[NOW]->m_fPaperX, m_pTurnPaper[NOW]->m_fPaperY);
+		return;
 	}
-	else
+
+	if (m_bStart)
+	{
+		m_pRule->DrawBitblt(0, 0);
+		m_LoadingSc.Draw(hdc);
+	}
+	else 
 	{
 		m_pRule->DrawBitblt(0, 0);
 		JEngine::UIManager::GetInstance()->Draw();
@@ -142,70 +205,69 @@ void PaperGameScene::SetTurnPaper()
 void PaperGameScene::SlidePaper(float fETime)
 {
 	Paper* Now = m_pTurnPaper[NOW];
-	int x = Now->m_fPaperX;
-	int y = Now->m_fPaperY;
 
-	switch (m_pTurnPaper[NOW]->m_eDirection)
-	{
-	case UP:
-		if (Now->m_eColor != m_pColorPaper[UP]->m_eColor)
+		switch (m_pTurnPaper[NOW]->m_eDirection)
 		{
-			IsSameColor(false);
-		}
-		else
-		{
-			y -= fETime * m_fMoveSpeed;
-			if (y <= m_pColorPaper[UP]->m_fPaperY)
+		case UP:
+			if (Now->m_eColor != m_pColorPaper[UP]->m_eColor)
 			{
-				IsSameColor(true);
+				IsSameColor(false);
 			}
-		}
-		break;
-	case DOWN:
-		if (Now->m_eColor != m_pColorPaper[DOWN]->m_eColor)
-		{
-			IsSameColor(false);
-		}
-		else
-		{
-			y += fETime * m_fMoveSpeed;
-			if (y <= m_pColorPaper[DOWN]->m_fPaperY)
+			else
 			{
-				IsSameColor(true);
+				m_pTurnPaper[NOW]->m_fPaperY -= fETime * m_fMoveSpeed;
+				if (m_pTurnPaper[NOW]->m_fPaperY <= m_pColorPaper[UP]->m_fPaperY)
+				{
+					IsSameColor(true);
+				}
 			}
-		}
-		break;
-	case RIGHT:
-		if (Now->m_eColor != m_pColorPaper[RIGHT]->m_eColor)
-		{
-			IsSameColor(false);
-		}
-		else
-		{
-			x -= fETime * m_fMoveSpeed;
-			if (y <= m_pColorPaper[RIGHT]->m_fPaperY)
+			break;
+		case DOWN:
+			if (Now->m_eColor != m_pColorPaper[DOWN]->m_eColor)
 			{
-				IsSameColor(true);
+				IsSameColor(false);
 			}
-		}
-		break;
-	case LEFT:
-		if (Now->m_eColor != m_pColorPaper[LEFT]->m_eColor)
-		{
-			IsSameColor(false);
-		}
-		else
-		{
-			x += fETime * m_fMoveSpeed;
-			if (y <= m_pColorPaper[LEFT]->m_fPaperY)
+			else
 			{
-				IsSameColor(true);
+				m_pTurnPaper[NOW]->m_fPaperY += fETime * m_fMoveSpeed;
+				if (m_pTurnPaper[NOW]->m_fPaperY >= m_pColorPaper[DOWN]->m_fPaperY)
+				{
+					IsSameColor(true);
+				}
 			}
+			break;
+		case RIGHT:
+			if (Now->m_eColor != m_pColorPaper[RIGHT]->m_eColor)
+			{
+				IsSameColor(false);
+			}
+			else
+			{
+				m_pTurnPaper[NOW]->m_fPaperX += fETime * m_fMoveSpeed;
+				if (m_pTurnPaper[NOW]->m_fPaperX >= m_pColorPaper[RIGHT]->m_fPaperX)
+				{
+					IsSameColor(true);
+				}
+			}
+			break;
+		case LEFT:
+			if (Now->m_eColor != m_pColorPaper[LEFT]->m_eColor)
+			{
+				IsSameColor(false);
+			}
+			else
+			{
+				m_pTurnPaper[NOW]->m_fPaperX -= fETime * m_fMoveSpeed;
+				if (m_pTurnPaper[NOW]->m_fPaperX <= m_pColorPaper[LEFT]->m_fPaperX)
+				{
+					IsSameColor(true);
+
+				}
+			}
+			break;
+		default:
+			break;
 		}
-		break;
-	default:
-		break;
-	}
 }
 
 void PaperGameScene::IsSameColor(bool bSame)
@@ -213,18 +275,77 @@ void PaperGameScene::IsSameColor(bool bSame)
 	if (bSame)
 	{
 		//스코어 추가
+		m_iScore += m_iPaperPoint;
 		//페이퍼 바꾸기
+		delete m_pTurnPaper[NOW];
+		m_pTurnPaper[NOW] = new Paper;
+		m_pTurnPaper[NOW]->m_fPaperX = 150.0f;
+		m_pTurnPaper[NOW]->m_fPaperY = 300.0f;
+		m_pTurnPaper[NOW]->m_eColor = m_pTurnPaper[NEXT]->m_eColor;
+		m_pTurnPaper[NEXT]->m_eColor = ((PAPER_COLOR)(rand() % 4));
 		//콤보일 경우 피버 추가로 더 올리고 아닐 경우는 그냥
+		//5번 콤보 마다 보너스 -> 피버는 계속
+		if(m_iComboCount > 0 && m_iComboCount % 5 == 0)
+			m_iFeverGauge += 20;
+		else
+			m_iFeverGauge += 10;
 		//콤보 올리기
-		m_bMovable = true;
+		m_iComboCount++;
+		m_bMoveing = false;
+		m_bSame = true;
 	}
 	else
 	{
-		//리턴 진동
-		//콤보0
 		//피버 감소
-		m_bMovable = false;
+		m_iFeverGauge -= 10;
+		if (m_iFeverGauge < 0)
+			m_iFeverGauge = 0;
+		//콤보0
+		m_iComboCount = 0;
+		//리턴 진동
+		m_bSame = false;
+		m_bMoveing = false;
 	}
+}
+
+void PaperGameScene::NotSameMotion(float fETime)
+{
+		static bool bDirect = true;
+		if (m_pTurnPaper[NOW]->m_eDirection == UP || m_pTurnPaper[NOW]->m_eDirection == DOWN || m_pTurnPaper[NOW]->m_eDirection == NONE)
+		{
+			if (m_pTurnPaper[NOW]->m_fPaperY > 290.0f & bDirect)
+			{
+				m_pTurnPaper[NOW]->m_fPaperY -= fETime * 100;
+			}
+			else
+			{
+				bDirect = false;
+				if (m_pTurnPaper[NOW]->m_fPaperY > 310.f & !bDirect)
+				{
+					bDirect = true;
+				}
+				m_pTurnPaper[NOW]->m_fPaperY += fETime * 100;
+
+			}
+		}
+		else
+		{
+			if (m_pTurnPaper[NOW]->m_fPaperX > 140.0f & bDirect)
+			{
+				m_pTurnPaper[NOW]->m_fPaperX -= fETime * 100;
+			}
+			else
+			{
+				bDirect = false;
+				if (m_pTurnPaper[NOW]->m_fPaperX > 160.f & !bDirect)
+				{
+					bDirect = true;
+				}
+				m_pTurnPaper[NOW]->m_fPaperX += fETime * 100;
+
+			}
+		}
+
 }
 
 bool PaperGameScene::OnSelectCheck()

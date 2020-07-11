@@ -150,7 +150,6 @@
     <ClCompile Include="BitMap.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="EngineMain.cpp" />
-    <ClCompile Include="Font.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="POINT.cpp" />
@@ -165,7 +164,6 @@
     <ClInclude Include="BitMap.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="EngineMain.h" />
-    <ClInclude Include="Font.h" />
     <ClInclude Include="GlobalDefine.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="JEngine.h" />

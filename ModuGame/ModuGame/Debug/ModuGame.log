@@ -1,23 +1,10 @@
-﻿  LoadingScence.cpp
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\loadingscence.cpp(12): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\loadingscence.cpp(13): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\loadingscence.cpp(51): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-  Main.cpp
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\main.cpp(18): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  PaperGameScene.cpp
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(43): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(86): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(87): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(145): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(146): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(157): warning C4244: '-=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(171): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(185): warning C4244: '-=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(199): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  PlaneGameScence.cpp
-  SelectScence.cpp
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\selectscence.cpp(27): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\winapi\모두의 게임 자료\작업\modugame\modugame\selectscence.cpp(28): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  TitleScene.cpp
-  코드를 생성하고 있습니다...
+﻿  PaperGameScene.cpp
+d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(50): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(143): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(146): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(147): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(320): warning C4554: '&': 연산자 우선 순위에 오류가 있는지 확인하세요. 괄호를 사용하여 우선 순위를 명확하게 지정하세요.
+d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(327): warning C4554: '&': 연산자 우선 순위에 오류가 있는지 확인하세요. 괄호를 사용하여 우선 순위를 명확하게 지정하세요.
+d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(337): warning C4554: '&': 연산자 우선 순위에 오류가 있는지 확인하세요. 괄호를 사용하여 우선 순위를 명확하게 지정하세요.
+d:\winapi\모두의 게임 자료\작업\modugame\modugame\papergamescene.cpp(344): warning C4554: '&': 연산자 우선 순위에 오류가 있는지 확인하세요. 괄호를 사용하여 우선 순위를 명확하게 지정하세요.
   ModuGame.vcxproj -> D:\winapi\모두의 게임 자료\작업\ModuGame\Debug\ModuGame.exe
