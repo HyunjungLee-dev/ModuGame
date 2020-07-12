@@ -29,6 +29,7 @@ namespace JEngine
 	void BitMap::init(HDC hdc, string file_name)
 	{
 		m_hMemDC = CreateCompatibleDC(hdc);
+		m_hAlphaDC = CreateCompatibleDC(hdc);
 		m_hBitMap = (HBITMAP)LoadImage(NULL, file_name.c_str(), IMAGE_BITMAP, 0, 0
 			, LR_CREATEDIBSECTION | LR_DEFAULTSIZE | LR_LOADFROMFILE);
 
@@ -70,6 +71,13 @@ namespace JEngine
 		BitBlt(hdc, 0, 0, m_size.cx, m_size.cy, m_hMemDC, 0, 0, SRCCOPY);
 	}
 
+	void BitMap::StretchDraw(int x, int y, float dx, float dy)
+	{
+		AdjustAnchorPoint(x, y);
+		SetStretchBltMode(ResoucesManager::GetInstance()->GetBackDC(),COLORONCOLOR);
+		StretchBlt(ResoucesManager::GetInstance()->GetBackDC(), x, y, m_size.cx * dx, m_size.cy * dy, m_hMemDC, 0, 0, m_size.cx, m_size.cy, SRCCOPY);
+	}
+
 	void BitMap::DrawAlpha(int x, int y)
 	{
 		AdjustAnchorPoint(x, y);
@@ -77,6 +85,20 @@ namespace JEngine
 		_bf.BlendOp = 0;
 		_bf.BlendFlags = 0;
 		_bf.SourceConstantAlpha = 100;
+		_bf.AlphaFormat = AC_SRC_OVER;
+
+		GdiAlphaBlend(ResoucesManager::GetInstance()->GetBackDC(), x, y, m_size.cx, m_size.cy, m_hMemDC, x, y, m_size.cx, m_size.cy, _bf);
+	}
+
+	void BitMap::DrawAlpha(int x, int y, int Alpha)
+	{
+		/*AdjustAnchorPoint(x, y);
+		TransparentBlt(m_hAlphaDC, x, y, m_size.cx, m_size.cy, m_hMemDC, 0, 0, m_size.cx, m_size.cy, RGB(255, 0, 255));*/
+	
+		BLENDFUNCTION _bf;
+		_bf.BlendOp = 0;
+		_bf.BlendFlags = 0;
+		_bf.SourceConstantAlpha = Alpha;
 		_bf.AlphaFormat = AC_SRC_OVER;
 
 		GdiAlphaBlend(ResoucesManager::GetInstance()->GetBackDC(), x, y, m_size.cx, m_size.cy, m_hMemDC, x, y, m_size.cx, m_size.cy, _bf);

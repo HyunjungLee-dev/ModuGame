@@ -1,6 +1,7 @@
 #pragma once
 #include "GlobalDefine.h"
 #include "JEngine.h"
+#include "defines.h"
 
 class LoadingScence 
 {
@@ -14,10 +15,10 @@ private:
 	float				m_fSpeedY;
 
 	float				m_fNextSceTime;
+	int					m_iAlpha;
 
 public:
 	void Init(HWND hWnd);
-	bool Input(float fETime);
 	void Update(float fETime);
 	void Draw(HDC hdc);
 	void Release();

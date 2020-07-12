@@ -29,8 +29,22 @@ enum PAPER_COLOR
 	GREEN , YELLOW,   RED, BLUE, COLOREND
 };
 
+enum STAR
+{
+	STAR_YELLOW,
+	STAR_GREEN,
+	STAR_BLUE
+};
+
 enum PAPER_TURN
 {
 	NOW,
 	NEXT
+};
+
+enum FEVERSTATE
+{
+	BASIC,
+	SUPER,
+	ULTRA
 };

@@ -22,6 +22,7 @@ namespace JEngine
 		m_dwDrawOption = drawOption;
 	}
 
+
 	void Label::Draw()
 	{
 		

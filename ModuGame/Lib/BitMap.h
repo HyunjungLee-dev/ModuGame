@@ -33,6 +33,7 @@ namespace JEngine
 	{
 	private:
 		HDC				m_hMemDC;
+		HDC				m_hAlphaDC;
 		HBITMAP			m_hBitMap;
 		HBITMAP			m_hOldBitmap;
 		SIZE			m_size;
@@ -45,8 +46,10 @@ namespace JEngine
 		void			DrawBitblt(int x, int y);
 		void			Draw(int x, int y);
 		void			DrawAlpha(int x, int y);
+		void			DrawAlpha(int x, int y,int Alpha);
 		void			Draw(JEngine::POINT pt);
 		void			DrawBack(HDC hdc);
+		void			StretchDraw(int x, int y, float dx, float dy);
 		void			SetAnchor(ANCHOR type);
 		void			SetAnchorPoint(JEngine::POINTF pt);
 		HDC				GetDC();
