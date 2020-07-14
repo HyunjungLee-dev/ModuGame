@@ -4,7 +4,6 @@
 #include "UIManager.h"
 #include "ResoucesManager.h"
 #include <Windows.h>
-#include <string>
 #include "defines.h"
 
 PaperGameScene::PaperGameScene()
@@ -112,6 +111,7 @@ bool PaperGameScene::Input(float fETime)
 }
 
 
+
 void PaperGameScene::Update(float fETime)
 {
 	static int MovableCount = 0;
@@ -209,9 +209,63 @@ void PaperGameScene::Update(float fETime)
 
 }
 
+void PaperGameScene::GameTimeDraw()
+{
+	char ch[128];
+
+	float time = (m_fGameTime - GetTickCount()) / 1000.0f;
+	int sec = (int)(m_fGameTime - GetTickCount()) / 1000.0f;
+	int sec2 = (int)((time - sec) * 100);
+
+	if (sec < 10)
+		sprintf(ch, "0%d : %d ", sec, sec2);
+	else
+		sprintf(ch, "%d : %d ", sec, sec2);
+	string str(ch);
+	m_pGameTime->Init(str, 40, 620, DT_CENTER | DT_WORDBREAK);
+	m_pTimeBar->StretchDraw(25, 620, ((m_fGameTime - GetTickCount()) / 1000.0f) / 45, 1);
+
+	m_pGameTime->Draw();
+}
+
+void PaperGameScene::ScoreDraw()
+{
+	m_pScore->Init(to_string(m_iScore), CLIENT_SIZE_WIDTH * 0.48, CLIENT_SIZE_HEIGHT * 0.03, DT_CENTER | DT_WORDBREAK);
+	m_pScore->Draw();
+}
+
+
+void PaperGameScene::FeverTimeDraw()
+{
+	if (m_bFeverTime)
+	{
+		if (m_fEffectTime > 0.1f)
+		{
+			m_pFeverEffect->Draw(0, 0);
+			m_fEffectTime = 0.0f;
+		}
+	}
+	if (m_eFeverState != ULTRA)
+	{
+		if (m_eFeverState > BASIC)
+			m_pFever[BASIC]->Draw(20, 55);
+		m_pFever[m_eFeverState]->StretchDraw(20, 55, m_iFeverGauge / 100.0f, 1);
+	}
+	else
+	{
+		if (m_fUltraTime > 10.0f)
+		{
+			if (m_eUltraTime == BASIC)
+				m_pFever[m_eUltraTime]->StretchDraw(20, 55, m_iFeverGauge / 100.0f, 1);
+		}
+		else
+			m_pFever[m_eUltraTime]->Draw(20, 55);
+	}
+}
+
 void PaperGameScene::Draw(HDC hdc)
 {
-	char str[128];
+
 
 	if (m_bGamePlay)
 	{
@@ -224,44 +278,9 @@ void PaperGameScene::Draw(HDC hdc)
 			return;
 		}
 
-		float time = (m_fGameTime - GetTickCount()) / 1000.0f;
-		int sec = (int)(m_fGameTime - GetTickCount()) / 1000.0f;
-		int sec2 = (int)((time - sec) * 100);
-
-		if(sec < 10)
-			sprintf(str, "0%d : %d ", sec, sec2);
-		else
-			sprintf(str, "%d : %d ", sec, sec2);
-		string str(str);
-		m_pGameTime->Init(str, 40, 620,  DT_CENTER | DT_WORDBREAK);
-		m_pTimeBar->StretchDraw(25, 620, ((m_fGameTime - GetTickCount()) / 1000.0f) / 45, 1);
-
-		m_pGameTime->Draw();
+		GameTimeDraw();
 		
-		if (m_bFeverTime)
-		{
-			if (m_fEffectTime > 0.1f )
-			{
-				m_pFeverEffect->Draw(0, 0);
-				m_fEffectTime = 0.0f;
-			}
-		}
-		if (m_eFeverState != ULTRA)
-		{
-			if (m_eFeverState > BASIC)
-				m_pFever[BASIC]->Draw(20, 55);
-			m_pFever[m_eFeverState]->StretchDraw(20, 55, m_iFeverGauge / 100.0f, 1);
-		}
-		else
-		{
-			if (m_fUltraTime > 10.0f)
-			{
-				if (m_eUltraTime == BASIC)
-					m_pFever[m_eUltraTime]->StretchDraw(20, 55, m_iFeverGauge / 100.0f, 1);
-			}
-			else
-				m_pFever[m_eUltraTime]->Draw(20, 55);
-		}
+		FeverTimeDraw();
 
 		m_pColor[m_pTurnPaper[NEXT]->m_eColor]->Draw(m_pTurnPaper[NEXT]->m_fPaperX, m_pTurnPaper[NEXT]->m_fPaperY);
 		m_pColor[m_pTurnPaper[NOW]->m_eColor]->Draw(m_pTurnPaper[NOW]->m_fPaperX, m_pTurnPaper[NOW]->m_fPaperY);
@@ -281,8 +300,7 @@ void PaperGameScene::Draw(HDC hdc)
 			m_pPaperPoint->Draw();
 		}
 
-		m_pScore->Init(to_string(m_iScore), CLIENT_SIZE_WIDTH * 0.48, CLIENT_SIZE_HEIGHT * 0.03, DT_CENTER | DT_WORDBREAK);
-		m_pScore->Draw();
+		ScoreDraw();
 		return;
 	}
 
@@ -515,4 +533,7 @@ bool PaperGameScene::OnSelectCheck()
 
 void PaperGameScene::Release()
 {
+	delete	m_pScore;
+	delete	m_pPaperPoint;
+	delete	m_pGameTime;
 }

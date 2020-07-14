@@ -163,4 +163,10 @@ namespace JEngine
 	{
 		Draw(pt.x, pt.y);
 	}
+
+	void BitMap::DrawTra(JEngine::POINT pt)
+	{
+		TransparentBlt(ResoucesManager::GetInstance()->GetBackDC(), pt.x, pt.y, m_size.cx, m_size.cy, m_hMemDC, 0, 0, m_size.cx, m_size.cy, RGB(255, 0, 255));
+
+	}
 }

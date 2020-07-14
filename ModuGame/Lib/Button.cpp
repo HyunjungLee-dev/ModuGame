@@ -41,7 +41,7 @@ namespace JEngine
 
 	void Button::Draw()
 	{
-		m_pDefault->Draw(m_ptDraw);
+		m_pDefault->DrawTra(m_ptDraw);
 	}
 
 }

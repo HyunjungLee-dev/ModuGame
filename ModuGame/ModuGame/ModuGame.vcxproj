@@ -141,20 +141,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Data.h" />
     <ClInclude Include="defines.h" />
-    <ClInclude Include="LoadingScence.h" />
+    <ClInclude Include="LoadingScene.h" />
+    <ClInclude Include="NameScene.h" />
     <ClInclude Include="PaperGameScene.h" />
-    <ClInclude Include="PlaneGameScence.h" />
-    <ClInclude Include="SelectScence.h" />
+    <ClInclude Include="FlightGameScene.h" />
+    <ClInclude Include="SelectScene.h" />
+    <ClInclude Include="Star.h" />
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LoadingScence.cpp" />
+    <ClCompile Include="Data.cpp" />
+    <ClCompile Include="LoadingScene.cpp" />
+    <ClCompile Include="NameScene.cpp" />
     <ClCompile Include="PaperGameScene.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="PlaneGameScence.cpp" />
-    <ClCompile Include="SelectScence.cpp" />
+    <ClCompile Include="FlightGameScene.cpp" />
+    <ClCompile Include="SelectScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ModuGame.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

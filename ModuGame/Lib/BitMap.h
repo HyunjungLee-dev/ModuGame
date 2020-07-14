@@ -48,6 +48,7 @@ namespace JEngine
 		void			DrawAlpha(int x, int y);
 		void			DrawAlpha(int x, int y,int Alpha);
 		void			Draw(JEngine::POINT pt);
+		void			DrawTra(JEngine::POINT pt);
 		void			DrawBack(HDC hdc);
 		void			StretchDraw(int x, int y, float dx, float dy);
 		void			SetAnchor(ANCHOR type);

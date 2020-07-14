@@ -1,6 +1,6 @@
 #pragma once
 #include "GlobalDefine.h"
-#include"LoadingScence.h"
+#include"LoadingScene.h"
 #include "Label.h"
 #include "JEngine.h"
 #include"defines.h"
@@ -30,7 +30,7 @@ private:
 	JEngine::Label*		m_pScore;
 	JEngine::Label*		m_pPaperPoint;
 	JEngine::Label*		m_pGameTime;
-	LoadingScence		m_LoadingSc;
+	LoadingScene		m_LoadingSc;
 
 	Paper*				m_pColorPaper[4];
 	Paper*				m_pTurnPaper[2];
@@ -70,9 +70,15 @@ public:
 
 	void SetColorPaper();
 	void SetTurnPaper();
+
 	void SlidePaper(float fETime);
 	void NotSameMotion(float fETime);
 	void IsSameColor(bool bSame);
+
+	void GameTimeDraw();
+	void ScoreDraw();
+	void FeverTimeDraw();
+
 	bool OnSelectCheck();
 
 	PaperGameScene();

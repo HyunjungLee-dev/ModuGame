@@ -1,13 +1,13 @@
 #pragma once
 #include "GlobalDefine.h"
-#include"LoadingScence.h"
+#include"LoadingScene.h"
 #include "JEngine.h"
 
 class TitleScene : public JEngine::Scene
 {
 private:
 	JEngine::BitMap*	m_pTitle;
-	LoadingScence		m_LoadingSc;
+	LoadingScene		m_LoadingSc;
 
 	float				m_fNextSceTime;
 	bool				m_bLoading;
