@@ -4,11 +4,21 @@
 #include "UIManager.h"
 #include "ResoucesManager.h"
 #include <Windows.h>
+#include"Data.h"
 #include "defines.h"
 
 PaperGameScene::PaperGameScene()
 {
 
+	
+}
+
+PaperGameScene::~PaperGameScene()
+{
+}
+
+void PaperGameScene::SetMember()
+{
 	m_bLoading = false;
 	m_bStart = false;
 	m_bMoveing = false;
@@ -16,6 +26,7 @@ PaperGameScene::PaperGameScene()
 	m_bSame = true;
 	m_bFeverTime = false;
 	m_bTimeOver = false;
+	m_bFeverDown = false;
 
 
 	m_fNextSceTime = 0.0f;
@@ -33,12 +44,10 @@ PaperGameScene::PaperGameScene()
 	m_iFeverGauge = 0;
 }
 
-PaperGameScene::~PaperGameScene()
-{
-}
-
 void PaperGameScene::Init(HWND hWnd)
 {
+	SetMember();
+
 	JEngine::InputManager::GetInstance()->Clear();
 	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_SPACE);
 	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_ESCAPE);
@@ -118,57 +127,36 @@ void PaperGameScene::Update(float fETime)
 	
 	TCHAR str[128];
 
-	if (m_bStart)
-	{
-		m_fNextSceTime += fETime;
-		m_LoadingSc.Update(fETime);
-		if (m_fNextSceTime > 3.0f)
-		{
-			m_fNextSceTime = 0.0f;
-			m_bStart = false;
-			m_bGamePlay = true;
-			m_fGameTime = GetTickCount() + 45000;
-		}
-	}
 
 	if (m_bGamePlay)
 	{
 		if (m_fGameTime <= GetTickCount())
 		{
+			DownFeverGauge();
 			m_bTimeOver = true;
-			return;
-		}
-		if (m_bFeverTime)
-		{
-			m_fEffectTime += fETime;
-			if (m_eFeverState == ULTRA)
+			m_bFeverDown = true;
+			m_fNextSceTime += fETime;
+			if (m_fNextSceTime > 1.0f)
 			{
-				m_fUltraTime += fETime;
-				m_fNextSceTime += fETime;
-				if (m_fNextSceTime > 0.1f)
+				m_bStart = true;
+			}
+			if (m_bStart)
+			{
+				m_LoadingSc.Update(fETime);
+				if (m_fNextSceTime > 4.0f)
 				{
-					if (m_eUltraTime == ULTRA)
-						m_eUltraTime = BASIC;
-					else
-						m_eUltraTime = ULTRA;
-					m_fNextSceTime = 0.0f;
-				}
-
-				if (m_fUltraTime > 10.0f)
-				{
-					m_eUltraTime = BASIC;
-					m_iFeverGauge -= 1;
-					if (m_iFeverGauge == 0)
-					{
-						m_eFeverState = BASIC;
-						m_bFeverTime = false;
-						m_fUltraTime = 0.0f;
-					}
+					JEngine::SceneManager::GetInstance()->LoadScene(SCENE_INDEX_RANK);
+					Data::GetInstance()->GetUser()->SetUser(PAPER, m_iScore);
+					SetMember();
 				}
 			}
+			return;
 		}
+
+		if (m_bFeverDown)
+			DownFeverGauge();
 		else
-			m_fEffectTime = 0.0f;
+			FeverUpdate(fETime);
 
 		if (m_bMoveing)
 		{
@@ -176,22 +164,7 @@ void PaperGameScene::Update(float fETime)
 		}
 		else
 		{
-			if (m_iFeverGauge > 100 &&  m_eFeverState != ULTRA)
-			{
-				int tmp = 100 - m_iFeverGauge;
-				if (m_eFeverState == BASIC)
-				{
-					m_bFeverTime = true;
-					m_eFeverState = SUPER;
-				}
-				else if (m_eFeverState == SUPER)
-				{
-					m_eFeverState = ULTRA;
-					m_iFeverGauge = 99;
-					return;
-				}
-				m_iFeverGauge = abs(tmp);
-			}
+
 			if (!m_bSame)
 			{
 				m_fNextSceTime += fETime;
@@ -207,6 +180,80 @@ void PaperGameScene::Update(float fETime)
 		}
 	}
 
+	if (m_bStart)
+	{
+		m_fNextSceTime += fETime;
+		m_LoadingSc.Update(fETime);
+		if (m_fNextSceTime > 3.0f)
+		{
+			m_fNextSceTime = 0.0f;
+			m_bStart = false;
+			m_bGamePlay = true;
+			m_fGameTime = GetTickCount() + 45000;
+		}
+	}
+
+
+}
+
+void PaperGameScene::FeverUpdate(float fETime)
+{
+
+	if (m_iFeverGauge > 100 && m_eFeverState != ULTRA)
+	{
+		int tmp = 100 - m_iFeverGauge;
+		if (m_eFeverState == BASIC)
+		{
+			m_bFeverTime = true;
+			m_eFeverState = SUPER;
+		}
+		else if (m_eFeverState == SUPER)
+		{
+			m_eFeverState = ULTRA;
+			m_iFeverGauge = 99;
+			return;
+		}
+		m_iFeverGauge = abs(tmp);
+	}
+
+	if (m_bFeverTime)
+	{
+		m_fEffectTime += fETime;
+		if (m_eFeverState == ULTRA)
+		{
+			m_fUltraTime += fETime;
+			m_fNextSceTime += fETime;
+			if (m_fNextSceTime > 0.1f)
+			{
+				if (m_eUltraTime == ULTRA)
+					m_eUltraTime = BASIC;
+				else
+					m_eUltraTime = ULTRA;
+				m_fNextSceTime = 0.0f;
+			}
+
+			if (m_fUltraTime > 5.0f)
+			{
+				m_eUltraTime = BASIC;
+				m_bFeverDown = true;
+			}
+		}
+	}
+	else
+		m_fEffectTime = 0.0f;
+}
+
+void PaperGameScene::DownFeverGauge()
+{
+	m_iFeverGauge -= 1;
+	if (m_iFeverGauge <= 0)
+	{
+		m_iFeverGauge = 0;
+		m_eFeverState = BASIC;
+		m_bFeverTime = false;
+		m_fUltraTime = 0.0f;
+		m_bFeverDown = false;
+	}
 }
 
 void PaperGameScene::GameTimeDraw()
@@ -237,6 +284,12 @@ void PaperGameScene::ScoreDraw()
 
 void PaperGameScene::FeverTimeDraw()
 {
+	if (m_bFeverDown)
+	{
+		m_pFever[BASIC]->StretchDraw(20, 55, m_iFeverGauge / 100.0f, 1);
+		return;
+	}
+
 	if (m_bFeverTime)
 	{
 		if (m_fEffectTime > 0.1f)
@@ -272,15 +325,7 @@ void PaperGameScene::Draw(HDC hdc)
 
 		m_pBack->DrawBitblt(0, 0);
 
-		if (m_bTimeOver)
-		{
-			m_pTimeOver->Draw(CLIENT_SIZE_WIDTH * 0.2, CLIENT_SIZE_HEIGHT * 0.4);
-			return;
-		}
 
-		GameTimeDraw();
-		
-		FeverTimeDraw();
 
 		m_pColor[m_pTurnPaper[NEXT]->m_eColor]->Draw(m_pTurnPaper[NEXT]->m_fPaperX, m_pTurnPaper[NEXT]->m_fPaperY);
 		m_pColor[m_pTurnPaper[NOW]->m_eColor]->Draw(m_pTurnPaper[NOW]->m_fPaperX, m_pTurnPaper[NOW]->m_fPaperY);
@@ -301,10 +346,24 @@ void PaperGameScene::Draw(HDC hdc)
 		}
 
 		ScoreDraw();
+		FeverTimeDraw();
+
+		if (m_bTimeOver && m_iFeverGauge == 0)
+		{
+			m_pTimeOver->Draw(CLIENT_SIZE_WIDTH * 0.2, CLIENT_SIZE_HEIGHT * 0.4);
+			if (m_bStart)
+			{
+				m_LoadingSc.Draw(hdc);
+			}
+			return;
+
+		}
+
+		GameTimeDraw();
 		return;
 	}
 
-	if (m_bStart)
+	if (m_bStart )
 	{
 		m_pRule->DrawBitblt(0, 0);
 		m_LoadingSc.Draw(hdc);
@@ -533,7 +592,5 @@ bool PaperGameScene::OnSelectCheck()
 
 void PaperGameScene::Release()
 {
-	delete	m_pScore;
-	delete	m_pPaperPoint;
-	delete	m_pGameTime;
+
 }

@@ -6,6 +6,7 @@
 #include<list>
 #include"Bullet.h"
 #include"Star.h"
+#include"Data.h"
 
 struct Flight
 {
@@ -75,7 +76,7 @@ public:
 	virtual void Draw(HDC hdc);
 	virtual void Release();
 
-
+	void SetMember();
 	void ScoreDraw();
 	void GameTimeDraw();
 	void FeverTimeDraw();

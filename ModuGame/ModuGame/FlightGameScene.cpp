@@ -8,10 +8,18 @@
 
 FlightGameScene::FlightGameScene()
 {
+}
+
+FlightGameScene::~FlightGameScene()
+{
+}
+
+void FlightGameScene::SetMember()
+{
 	m_fNextSceTime = 0.0f;
 	m_bLoading = false;
 
-	
+
 	m_bStart = false;
 	m_bGamePlay = false;
 	m_bTimeOver = false;
@@ -30,13 +38,10 @@ FlightGameScene::FlightGameScene()
 	m_iBonusPoint = 100;
 }
 
-FlightGameScene::~FlightGameScene()
-{
-}
-
 void FlightGameScene::Init(HWND hWnd)
 {
-	
+	SetMember();
+
 	m_pSky[0] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\Sky00.bmp");
 	m_pSky[1] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\Sky01.bmp");
 	m_LoadingSc.Init(hWnd);
@@ -288,10 +293,8 @@ void FlightGameScene::Update(float fETime)
 {
 	static float m_fScoreTime = 0.0f;
 
-
-
 	if (m_bGamePlay)
-	{
+	{ 
 	
 		//sky
 		m_fSkyY[0] += 100 * fETime;
@@ -315,6 +318,21 @@ void FlightGameScene::Update(float fETime)
 		{
 			DownFeverGauge();
 			m_bTimeOver = true;
+			m_fNextSceTime += fETime;
+			if (m_fNextSceTime > 1.0f)
+			{
+				m_bStart = true;
+			}
+			if(m_bStart)
+			{
+				m_LoadingSc.Update(fETime);
+				if (m_fNextSceTime > 4.0f)
+				{
+					JEngine::SceneManager::GetInstance()->LoadScene(SCENE_INDEX_RANK);
+					Data::GetInstance()->GetUser()->SetUser(FLIGHT, m_iScore);
+					SetMember();
+				}
+			}
 			return;
 		}
 
@@ -348,16 +366,17 @@ void FlightGameScene::Update(float fETime)
 
 
 
-	if (m_bStart)
+	if (m_bStart )
 	{
 		m_fNextSceTime += fETime;
 		m_LoadingSc.Update(fETime);
 		if (m_fNextSceTime > 3.0f)
 		{
-			m_fNextSceTime = 0.0f;
 			m_bStart = false;
 			m_bGamePlay = true;
 			m_fGameTime = GetTickCount() + 45000;
+			
+			m_fNextSceTime = 0.0f;
 		}
 	}
 }
@@ -517,23 +536,24 @@ void FlightGameScene::Draw(HDC hdc)
 		}
 		else
 			m_Flight.FlightBit->Draw(m_Flight.FlightPoint);
-		
 
 		//Frame
 		m_pFrame->Draw(0, 0);
 
-		if (m_bTimeOver && m_iFeverGauge == 0)
+		if (m_bTimeOver && m_iFeverGauge == 0 )
 		{
 			m_pTimeOver->Draw(CLIENT_SIZE_WIDTH * 0.2, CLIENT_SIZE_HEIGHT * 0.4);
+			if (m_bStart)
+			{
+				m_LoadingSc.Draw(hdc);
+			}
 			return;
-		}
 
+		}
 		//Time & Score
 		GameTimeDraw();
 		ScoreDraw();
-
 		FeverTimeDraw();
-	
 		return;
 	}
 
@@ -542,6 +562,7 @@ void FlightGameScene::Draw(HDC hdc)
 	//Rule & Loading
 	if (m_bStart)
 	{
+	
 		m_pRule->DrawBitblt(0, 0);
 		m_LoadingSc.Draw(hdc);
 	}
@@ -580,9 +601,6 @@ void FlightGameScene::StarListClear()
 
 void FlightGameScene::Release()
 {
-	//Label
-	delete m_pGameTime;
-	delete	m_pScore;
 
 	//bullet
 	BulletListClear();

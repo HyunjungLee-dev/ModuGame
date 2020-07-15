@@ -51,6 +51,7 @@ private:
 	bool				m_bSame;
 	bool				m_bFeverTime;
 	bool				m_bTimeOver;
+	bool				m_bFeverDown;
 
 
 	int					m_iComboCount;
@@ -68,6 +69,7 @@ public:
 	virtual void Draw(HDC hdc);
 	virtual void Release();
 
+	void SetMember();
 	void SetColorPaper();
 	void SetTurnPaper();
 
@@ -78,6 +80,9 @@ public:
 	void GameTimeDraw();
 	void ScoreDraw();
 	void FeverTimeDraw();
+
+	void FeverUpdate(float fETime);
+	void DownFeverGauge();
 
 	bool OnSelectCheck();
 

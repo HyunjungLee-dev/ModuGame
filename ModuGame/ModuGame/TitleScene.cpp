@@ -42,6 +42,7 @@ void TitleScene::Update(float fETime)
 		m_LoadingSc.Update(fETime);
 		if (m_fNextSceTime > 2.0f)
 		{
+
 			JEngine::SceneManager::GetInstance()->LoadScene(SCENE_INDEX_NAME);
 			m_fNextSceTime = 0.0f;
 			m_bLoading = false;

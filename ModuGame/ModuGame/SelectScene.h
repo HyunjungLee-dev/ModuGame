@@ -3,12 +3,16 @@
 #include"LoadingScene.h"
 #include "JEngine.h"
 #include"defines.h"
+#include"Label.h"
+#include"Data.h"
 
 class SelectScene : public JEngine::Scene
 {
 private:
 	JEngine::BitMap*	m_pGameSelect;
 	LoadingScene		m_LoadingSc;
+	JEngine::Label*		m_pPaperScore;
+	JEngine::Label*		m_pFlightScore;
 
 	SCENE_INDEX			m_eSelectIndex;
 	float				m_fNextSceTime;

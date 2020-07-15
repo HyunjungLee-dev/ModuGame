@@ -63,6 +63,9 @@
     <ClInclude Include="FlightGameScene.h">
       <Filter>헤더 파일\FlightGame</Filter>
     </ClInclude>
+    <ClInclude Include="RankScene.h">
+      <Filter>헤더 파일\Set</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="FlightGameScene.cpp">
       <Filter>소스 파일\FlightGame</Filter>
+    </ClCompile>
+    <ClCompile Include="RankScene.cpp">
+      <Filter>소스 파일\Set</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,9 @@ void SelectScene::Init(HWND hWnd)
 	m_pGameSelect = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\GameSelect.bmp");
 	m_LoadingSc.Init(hWnd);
 
+	m_pFlightScore = new JEngine::Label();
+	m_pPaperScore = new JEngine::Label();
+
 	JEngine::UIManager::GetInstance()->AddButton(CLIENT_SIZE_WIDTH * 0.77, CLIENT_SIZE_HEIGHT * 0.26, "res\\OnSelect.bmp", std::bind(&SelectScene::OnSelectPaper, this));
 	JEngine::UIManager::GetInstance()->AddButton(CLIENT_SIZE_WIDTH * 0.77, CLIENT_SIZE_HEIGHT * 0.39, "res\\OnSelect.bmp", std::bind(&SelectScene::OnSelectPlane, this));
 }
@@ -55,6 +58,13 @@ void SelectScene::Draw(HDC hdc)
 {
 	m_pGameSelect->DrawBitblt(0, 0);
 	JEngine::UIManager::GetInstance()->Draw();
+
+	m_pFlightScore->Init(to_string(Data::GetInstance()->GetUser()->FlightScore), CLIENT_SIZE_WIDTH * 0.27, CLIENT_SIZE_HEIGHT * 0.44, DT_LEFT | DT_WORDBREAK);
+	m_pFlightScore->Draw();
+	
+	m_pPaperScore->Init(to_string(Data::GetInstance()->GetUser()->PaperScore), CLIENT_SIZE_WIDTH * 0.27, CLIENT_SIZE_HEIGHT * 0.31, DT_LEFT | DT_WORDBREAK);
+	m_pPaperScore->Draw();
+
 	if (m_bSelect)
 	{
 		m_LoadingSc.Draw(hdc);
