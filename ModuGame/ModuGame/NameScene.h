@@ -27,7 +27,7 @@ public:
 	virtual void Release();
 	bool OnClick();
 
-	void NameTyping();
+
 
 	NameScene();
 	virtual ~NameScene();

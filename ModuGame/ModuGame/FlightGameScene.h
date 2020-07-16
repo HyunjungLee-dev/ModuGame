@@ -6,7 +6,7 @@
 #include<list>
 #include"Bullet.h"
 #include"Star.h"
-#include"Data.h"
+#include"UserManager.h"
 
 struct Flight
 {
@@ -62,12 +62,6 @@ private:
 
 
 	bool				m_bFeverTime;
-
-
-
-	
-
-
 
 public:
 	virtual void Init(HWND hWnd);

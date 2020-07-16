@@ -142,7 +142,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Data.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="NameScene.h" />
@@ -152,9 +151,9 @@
     <ClInclude Include="SelectScene.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="UserManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Data.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="NameScene.cpp" />
     <ClCompile Include="PaperGameScene.cpp" />
@@ -163,6 +162,7 @@
     <ClCompile Include="RankScene.cpp" />
     <ClCompile Include="SelectScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="UserManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ModuGame.rc" />

@@ -6,6 +6,7 @@
 #include <Windows.h>
 #include "defines.h"
 
+
 SelectScene::SelectScene()
 {
 	m_fNextSceTime = 0.0f;
@@ -59,10 +60,10 @@ void SelectScene::Draw(HDC hdc)
 	m_pGameSelect->DrawBitblt(0, 0);
 	JEngine::UIManager::GetInstance()->Draw();
 
-	m_pFlightScore->Init(to_string(Data::GetInstance()->GetUser()->FlightScore), CLIENT_SIZE_WIDTH * 0.27, CLIENT_SIZE_HEIGHT * 0.44, DT_LEFT | DT_WORDBREAK);
+	m_pFlightScore->Init(to_string(UserManager::GetInstance()->GetUser()->FlightScore), CLIENT_SIZE_WIDTH * 0.27, CLIENT_SIZE_HEIGHT * 0.44, DT_LEFT | DT_WORDBREAK);
 	m_pFlightScore->Draw();
 	
-	m_pPaperScore->Init(to_string(Data::GetInstance()->GetUser()->PaperScore), CLIENT_SIZE_WIDTH * 0.27, CLIENT_SIZE_HEIGHT * 0.31, DT_LEFT | DT_WORDBREAK);
+	m_pPaperScore->Init(to_string(UserManager::GetInstance()->GetUser()->PaperScore), CLIENT_SIZE_WIDTH * 0.27, CLIENT_SIZE_HEIGHT * 0.31, DT_LEFT | DT_WORDBREAK);
 	m_pPaperScore->Draw();
 
 	if (m_bSelect)

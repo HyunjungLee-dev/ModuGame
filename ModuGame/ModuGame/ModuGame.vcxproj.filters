@@ -42,16 +42,10 @@
     <ClInclude Include="PaperGameScene.h">
       <Filter>헤더 파일\PaperGame</Filter>
     </ClInclude>
-    <ClInclude Include="defines.h">
-      <Filter>헤더 파일\Set</Filter>
-    </ClInclude>
     <ClInclude Include="NameScene.h">
       <Filter>헤더 파일\Set</Filter>
     </ClInclude>
     <ClInclude Include="TitleScene.h">
-      <Filter>헤더 파일\Set</Filter>
-    </ClInclude>
-    <ClInclude Include="Data.h">
       <Filter>헤더 파일\Set</Filter>
     </ClInclude>
     <ClInclude Include="SelectScene.h">
@@ -65,6 +59,12 @@
     </ClInclude>
     <ClInclude Include="RankScene.h">
       <Filter>헤더 파일\Set</Filter>
+    </ClInclude>
+    <ClInclude Include="defines.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UserManager.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,9 +80,6 @@
     <ClCompile Include="TitleScene.cpp">
       <Filter>소스 파일\Set</Filter>
     </ClCompile>
-    <ClCompile Include="Data.cpp">
-      <Filter>소스 파일\Set</Filter>
-    </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
       <Filter>소스 파일\Set</Filter>
     </ClCompile>
@@ -94,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="RankScene.cpp">
       <Filter>소스 파일\Set</Filter>
+    </ClCompile>
+    <ClCompile Include="UserManager.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

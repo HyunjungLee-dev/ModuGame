@@ -2,15 +2,15 @@
 #include "GlobalDefine.h"
 #include"LoadingScene.h"
 #include "JEngine.h"
-#include"Data.h"
+#include"UserManager.h"
 
 class RankScene : public JEngine::Scene
 {
 private:
 	JEngine::BitMap*	m_pFrame;
 	JEngine::BitMap*	m_pBack;
-	JEngine::BitMap*	m_pUser[2];
 	LoadingScene		m_LoadingSc;
+	int					m_RankX, m_RankY;
 
 	float				m_fNextSceTime;
 	bool				m_bLoading;

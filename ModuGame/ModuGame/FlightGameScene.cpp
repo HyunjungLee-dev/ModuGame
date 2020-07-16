@@ -97,7 +97,7 @@ bool FlightGameScene::Input(float fETime)
 void FlightGameScene::BulletUpdate(float fETime)
 {
 	static float BulletTime = 0.0f;
-	float CreatTime = 1.0f;
+	float CreatTime = 0.8f;
 
 	//생성 시간
 	BulletTime += fETime;
@@ -328,8 +328,11 @@ void FlightGameScene::Update(float fETime)
 				m_LoadingSc.Update(fETime);
 				if (m_fNextSceTime > 4.0f)
 				{
+					if(m_iScore >= UserManager::GetInstance()->GetUser()->FlightScore)
+						UserManager::GetInstance()->GetUser()->SetUser(FLIGHT, m_iScore);
+					UserManager::GetInstance()->RankSort();
+					UserManager::GetInstance()->Save();
 					JEngine::SceneManager::GetInstance()->LoadScene(SCENE_INDEX_RANK);
-					Data::GetInstance()->GetUser()->SetUser(FLIGHT, m_iScore);
 					SetMember();
 				}
 			}
@@ -337,11 +340,18 @@ void FlightGameScene::Update(float fETime)
 		}
 
 		//Flight
-		m_Flight.FlightPoint = JEngine::InputManager::GetInstance()->GetMousePoint();
-		m_Flight.FlightPoint.x = m_Flight.FlightPoint.x - m_Flight.FlightBit->GetWidth() * 0.5;
-		m_Flight.FlightPoint.y = m_Flight.FlightPoint.y - m_Flight.FlightBit->GetHeight() * 0.5;
-		m_Flight.Rect = { m_Flight.FlightPoint.x ,m_Flight.FlightPoint.y ,
-		m_Flight.FlightPoint.x + m_Flight.FlightBit->GetWidth(),m_Flight.FlightPoint.y + m_Flight.FlightBit->GetHeight() };
+		int mousepointX = JEngine::InputManager::GetInstance()->GetMousePoint().x;
+		 int mousepointY = JEngine::InputManager::GetInstance()->GetMousePoint().y;
+
+			if ((mousepointX > 20 && mousepointX < CLIENT_SIZE_WIDTH - 20)
+				&& (mousepointY > 100 && mousepointY < CLIENT_SIZE_HEIGHT - 60))
+			{
+				m_Flight.FlightPoint = JEngine::InputManager::GetInstance()->GetMousePoint();
+				m_Flight.FlightPoint.x = m_Flight.FlightPoint.x - m_Flight.FlightBit->GetWidth() * 0.5;
+				m_Flight.FlightPoint.y = m_Flight.FlightPoint.y - m_Flight.FlightBit->GetHeight() * 0.5;
+				m_Flight.Rect = { m_Flight.FlightPoint.x ,m_Flight.FlightPoint.y ,
+				m_Flight.FlightPoint.x + m_Flight.FlightBit->GetWidth(),m_Flight.FlightPoint.y + m_Flight.FlightBit->GetHeight() };
+			}
 
 		//Fever
 		if (m_bFeverDown)
@@ -383,6 +393,7 @@ void FlightGameScene::Update(float fETime)
 
 void FlightGameScene::DownFeverGauge()
 {
+	m_eFeverState = BASIC;
 	m_iFeverGauge -= 1;
 	if (m_iFeverGauge <= 0)
 	{
@@ -540,6 +551,8 @@ void FlightGameScene::Draw(HDC hdc)
 		//Frame
 		m_pFrame->Draw(0, 0);
 
+		ScoreDraw();
+
 		if (m_bTimeOver && m_iFeverGauge == 0 )
 		{
 			m_pTimeOver->Draw(CLIENT_SIZE_WIDTH * 0.2, CLIENT_SIZE_HEIGHT * 0.4);
@@ -550,9 +563,8 @@ void FlightGameScene::Draw(HDC hdc)
 			return;
 
 		}
-		//Time & Score
+
 		GameTimeDraw();
-		ScoreDraw();
 		FeverTimeDraw();
 		return;
 	}

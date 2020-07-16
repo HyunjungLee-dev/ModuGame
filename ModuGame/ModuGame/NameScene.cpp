@@ -3,7 +3,7 @@
 #include "SceneManager.h"
 #include "UIManager.h"
 #include "ResoucesManager.h"
-#include "Data.h"
+#include "UserManager.h"
 #include "defines.h"
 
 
@@ -69,7 +69,9 @@ void NameScene::Update(float fETime)
 		m_LoadingSc.Update(fETime);
 		if (m_fNextSceTime > 2.0f)
 		{
-			Data::GetInstance()->SetUser(m_strName);
+			UserManager::GetInstance()->SetUser(m_strName);
+			UserManager::GetInstance()->Load();
+			UserManager::GetInstance()->RankSort();
 			JEngine::SceneManager::GetInstance()->LoadScene(SCENE_INDEX_RANK);
 			m_fNextSceTime = 0.0f;
 			m_bLoading = false;
@@ -81,7 +83,7 @@ void NameScene::Draw(HDC hdc)
 {
 	m_pTitle->DrawBitblt(0, 0);
 	m_pBack->DrawAlpha(0, 0);
-	m_pName->Draw(CLIENT_SIZE_WIDTH * 0.25, CLIENT_SIZE_HEIGHT * 0.45);
+	m_pName->Draw(CLIENT_SIZE_WIDTH * 0.25, CLIENT_SIZE_HEIGHT * 0.445);
 
 	m_pLabelName->Init(m_strName, CLIENT_SIZE_WIDTH * 0.53, CLIENT_SIZE_HEIGHT * 0.5, DT_CENTER | DT_WORDBREAK);
 	m_pLabelName->Draw();
@@ -94,10 +96,6 @@ void NameScene::Draw(HDC hdc)
 	}
 }
 
-void NameScene::NameTyping()
-{
-
-}
 
 void NameScene::Release()
 {

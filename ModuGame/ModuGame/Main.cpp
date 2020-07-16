@@ -9,6 +9,7 @@
 #include"RankScene.h"
 #include <crtdbg.h> 
 #include <time.h>
+#include"UserManager.h"
 #include"defines.h"
 
 
@@ -19,6 +20,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	//엔진 객체를 생성하고 타이틀과 윈도우 사이즈를 넣어준다.
 	srand(time(NULL));
 	JEngine::EngineMain engine("모두의 게임", CLIENT_SIZE_WIDTH, CLIENT_SIZE_HEIGHT);
+//	UserManager::GetInstance()->Load();
 	//씬을 등록한다. 첫번째 등록하는 씬이 초기화면이 된다.
 	JEngine::SceneManager::GetInstance()->RegistScene(new TitleScene);
 	JEngine::SceneManager::GetInstance()->RegistScene(new SelectScene);

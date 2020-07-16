@@ -4,7 +4,7 @@
 #include "UIManager.h"
 #include "ResoucesManager.h"
 #include <Windows.h>
-#include"Data.h"
+#include"UserManager.h"
 #include "defines.h"
 
 PaperGameScene::PaperGameScene()
@@ -145,8 +145,11 @@ void PaperGameScene::Update(float fETime)
 				m_LoadingSc.Update(fETime);
 				if (m_fNextSceTime > 4.0f)
 				{
+					if (m_iScore >= UserManager::GetInstance()->GetUser()->PaperScore)
+						UserManager::GetInstance()->GetUser()->SetUser(PAPER, m_iScore);
+					UserManager::GetInstance()->RankSort();
+					UserManager::GetInstance()->Save();
 					JEngine::SceneManager::GetInstance()->LoadScene(SCENE_INDEX_RANK);
-					Data::GetInstance()->GetUser()->SetUser(PAPER, m_iScore);
 					SetMember();
 				}
 			}
@@ -592,5 +595,4 @@ bool PaperGameScene::OnSelectCheck()
 
 void PaperGameScene::Release()
 {
-
 }

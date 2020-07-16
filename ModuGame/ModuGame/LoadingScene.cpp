@@ -4,6 +4,7 @@
 #include "UIManager.h"
 #include "ResoucesManager.h"
 #include <Windows.h>
+#include"UserManager.h"
 #include "defines.h"
 
 LoadingScene::LoadingScene()
@@ -61,5 +62,4 @@ void LoadingScene::Draw(HDC hdc)
 
 void LoadingScene::Release()
 {
-
 }

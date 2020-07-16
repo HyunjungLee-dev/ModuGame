@@ -1,6 +1,7 @@
 #include "EngineMain.h"
 #include "SceneManager.h"
 
+
 namespace JEngine
 {
 	EngineMain::EngineMain(string title, int cx, int cy)
@@ -40,6 +41,7 @@ namespace JEngine
 
 		SceneManager::GetInstance()->Init(hWnd, m_winSizeX, m_winSizeY);
 
+
 		while (true)
 		{
 			/// 메시지큐에 메시지가 있으면 메시지 처리
@@ -61,7 +63,7 @@ namespace JEngine
 		}
 
 		SceneManager::GetInstance()->Release();
-		//_CrtDumpMemoryLeaks();
+
 
 		return (int)Message.wParam;
 	}
