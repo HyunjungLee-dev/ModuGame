@@ -13,6 +13,7 @@ private:
 	LoadingScene		m_LoadingSc;
 	JEngine::Label*		m_pPaperScore;
 	JEngine::Label*		m_pFlightScore;
+	JEngine::Label*		m_pMoleScore;
 
 	SCENE_INDEX			m_eSelectIndex;
 	float				m_fNextSceTime;
@@ -26,6 +27,7 @@ public:
 	virtual void Release();
 	bool OnSelectPaper();
 	bool OnSelectPlane();
+	bool OnSelectMole();
 
 	SelectScene();
 	~SelectScene();

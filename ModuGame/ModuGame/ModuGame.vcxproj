@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Animal.h" />
+    <ClInclude Include="AnimalFactory.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="LoadingScene.h" />
@@ -152,8 +154,10 @@
     <ClInclude Include="Star.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="UserManager.h" />
+    <ClInclude Include="MoleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animal.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="NameScene.cpp" />
     <ClCompile Include="PaperGameScene.cpp" />
@@ -163,6 +167,7 @@
     <ClCompile Include="SelectScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="UserManager.cpp" />
+    <ClCompile Include="MoleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ModuGame.rc" />

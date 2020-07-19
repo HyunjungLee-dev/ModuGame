@@ -28,6 +28,7 @@
 			WriteFile(hFile, &m_pUserList[i]->AllScore, sizeof(int), &writeB, NULL);
 			WriteFile(hFile, &m_pUserList[i]->PaperScore, sizeof(int), &writeB, NULL);
 			WriteFile(hFile, &m_pUserList[i]->FlightScore, sizeof(int), &writeB, NULL);
+			WriteFile(hFile, &m_pUserList[i]->MoleScore, sizeof(int), &writeB, NULL);
 		}
 		CloseHandle(hFile);
 	}
@@ -67,6 +68,7 @@
 				ReadFile(hFile, &m_pUserList.back()->AllScore, sizeof(int), &readB, NULL);
 				ReadFile(hFile, &m_pUserList.back()->PaperScore, sizeof(int), &readB, NULL);
 				ReadFile(hFile, &m_pUserList.back()->FlightScore, sizeof(int), &readB, NULL);
+				ReadFile(hFile, &m_pUserList.back()->MoleScore, sizeof(int), &readB, NULL);
 			}
 		}
 
@@ -83,6 +85,7 @@
 		m_NowPlayingUser->Name = name;
 		m_NowPlayingUser->FlightScore = 0;
 		m_NowPlayingUser->PaperScore = 0;
+		m_NowPlayingUser->MoleScore = 0;
 		m_NowPlayingUser->AllScore = 0;
 		m_NowPlayingUser->Rank = 0;
 

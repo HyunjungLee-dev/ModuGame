@@ -12,7 +12,7 @@ struct Flight
 {
 	JEngine::BitMap*	FlightBit;
 	JEngine::POINT		FlightPoint;
-	RECT				Rect;
+	RECT				Rect; //JEngineø° ¿÷¿Ω
 };
 
 class FlightGameScene : public JEngine::Scene

@@ -393,7 +393,6 @@ void FlightGameScene::Update(float fETime)
 
 void FlightGameScene::DownFeverGauge()
 {
-	m_eFeverState = BASIC;
 	m_iFeverGauge -= 1;
 	if (m_iFeverGauge <= 0)
 	{

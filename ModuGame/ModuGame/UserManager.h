@@ -14,6 +14,7 @@
 		int AllScore;
 		int PaperScore;
 		int FlightScore;
+		int MoleScore;
 
 		JEngine::BitMap*	m_pUser;
 		JEngine::Label*		m_pLabelName;
@@ -27,6 +28,8 @@
 				FlightScore = num;
 			else if (type == PAPER)
 				PaperScore = num;
+			else if (type == MOLE)
+				MoleScore = num;
 			AllScore = PaperScore + FlightScore;
 		}
 

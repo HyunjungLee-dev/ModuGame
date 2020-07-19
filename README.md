@@ -1,5 +1,9 @@
 # ModuGame
+<img alt="GitHub last commit" src="https://img.shields.io/badge/Update-2020.07.19-blue">
+
 모두의 게임의 일부 미니게임을 리메이크(REMAKE) C++/Winapi
+
+- **두더지 게임 업데이트 중**
 
 ## Controls
 
