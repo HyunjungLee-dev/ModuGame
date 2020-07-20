@@ -76,6 +76,8 @@ void MoleScene::Init(HWND hWnd)
 	m_pScore = new JEngine::Label();
 	m_pCursor = new JEngine::Label();
 
+	m_pAnimalList = new AnimalList;
+	m_pAnimalList->Init();
 
 	JEngine::UIManager::GetInstance()->AddButton(CLIENT_SIZE_WIDTH * 0.212, CLIENT_SIZE_HEIGHT * 0.845, "res\\check00.bmp", std::bind(&MoleScene::OnSelectCheck, this));
 
@@ -112,7 +114,7 @@ void MoleScene::Update(float fETime)
 				if (m_fNextSceTime > 4.0f)
 				{
 					if (m_iScore >= UserManager::GetInstance()->GetUser()->MoleScore)
-						UserManager::GetInstance()->GetUser()->SetUser(MOLE, m_iScore);
+						UserManager::GetInstance()->GetUser()->SetUser(MOLEGAME, m_iScore);
 					UserManager::GetInstance()->RankSort();
 					UserManager::GetInstance()->Save();
 					JEngine::SceneManager::GetInstance()->LoadScene(SCENE_INDEX_RANK);
@@ -292,6 +294,8 @@ void MoleScene::Draw(HDC hdc)
 		m_pBack->DrawBitblt(0, 90);
 
 
+		m_pAnimalList->Draw();
+
 		sprintf(ch, "%d , %d ", m_MousePoint.x, m_MousePoint.y);
 		string str(ch);
 		m_pCursor->Init(str, m_MousePoint.x + 10, m_MousePoint.y, DT_CENTER | DT_WORDBREAK);
@@ -346,6 +350,5 @@ bool MoleScene::OnSelectCheck()
 
 void MoleScene::Release()
 {
-
-
+	delete m_pAnimalList;
 }

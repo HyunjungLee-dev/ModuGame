@@ -24,11 +24,11 @@
 
 		void SetUser(GAME type, int num)
 		{
-			if (type == FLIGHT)
+			if (type == FLIGHTGAME)
 				FlightScore = num;
-			else if (type == PAPER)
+			else if (type == PAPERGAME)
 				PaperScore = num;
-			else if (type == MOLE)
+			else if (type == MOLEGAME)
 				MoleScore = num;
 			AllScore = PaperScore + FlightScore;
 		}

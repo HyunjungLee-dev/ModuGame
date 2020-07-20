@@ -3,16 +3,25 @@
 #include"Label.h"
 #include"defines.h"
 #include"ResoucesManager.h"
-class Animal
+
+enum ANIMALTYPE
+{
+	MOLE,
+	OCTOPUS
+};
+
+
+class Animal  //메모리풀 클래스 상속 | 오퍼레이터 new,del
 {
 protected:
-	string m_strName;
+	ANIMALTYPE m_eAnimalType;
 	JEngine::POINT m_Point;
 	JEngine::RECT m_Rect;
+	int m_iMotionNum;
 public:
-	virtual void Init(DIRECTION  Holedirct) {};
+	virtual void Init(DIRECTION  Holedirct) = 0;
 	void PointSet(DIRECTION  Holedirct);
-	virtual void Draw(int motionNum) {};
+	virtual void Draw() = 0;
 	Animal() {};
 	virtual ~Animal() {};
 };
@@ -24,7 +33,7 @@ private:
 	JEngine::BitMap*	m_pMole[6];
 public:
 	virtual void Init(DIRECTION  Holedirct) override;
-	virtual void Draw(int motionNum) override;
+	virtual void Draw() override;
 	Mole() {};
 	virtual ~Mole() {};
 
@@ -38,7 +47,7 @@ private:
 	JEngine::BitMap*	m_pOctopus[2];
 public:
 	virtual void Init(DIRECTION  Holedirct) override;
-	virtual void Draw(int motionNum) override;
+	virtual void Draw() override;
 	Octopus() {};
 	virtual ~Octopus() {};
 

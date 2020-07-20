@@ -78,7 +78,7 @@
     <ClInclude Include="Animal.h">
       <Filter>헤더 파일\whack_a_mole</Filter>
     </ClInclude>
-    <ClInclude Include="AnimalFactory.h">
+    <ClInclude Include="AnimalList.h">
       <Filter>헤더 파일\whack_a_mole</Filter>
     </ClInclude>
   </ItemGroup>
@@ -114,6 +114,9 @@
       <Filter>소스 파일\whack_a_mole</Filter>
     </ClCompile>
     <ClCompile Include="Animal.cpp">
+      <Filter>소스 파일\whack_a_mole</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimalList.cpp">
       <Filter>소스 파일\whack_a_mole</Filter>
     </ClCompile>
   </ItemGroup>

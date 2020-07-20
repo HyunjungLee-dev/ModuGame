@@ -146,7 +146,7 @@ void PaperGameScene::Update(float fETime)
 				if (m_fNextSceTime > 4.0f)
 				{
 					if (m_iScore >= UserManager::GetInstance()->GetUser()->PaperScore)
-						UserManager::GetInstance()->GetUser()->SetUser(PAPER, m_iScore);
+						UserManager::GetInstance()->GetUser()->SetUser(PAPERGAME, m_iScore);
 					UserManager::GetInstance()->RankSort();
 					UserManager::GetInstance()->Save();
 					JEngine::SceneManager::GetInstance()->LoadScene(SCENE_INDEX_RANK);

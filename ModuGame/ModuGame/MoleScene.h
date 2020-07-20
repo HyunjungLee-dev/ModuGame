@@ -4,6 +4,7 @@
 #include "JEngine.h"
 #include"Label.h"
 #include"UserManager.h"
+#include"AnimalList.h"
 
 
 
@@ -30,6 +31,8 @@ private:
 	FEVERSTATE			m_eUltraTime;
 
 	LoadingScene		m_LoadingSc;
+
+	AnimalList* m_pAnimalList;
 
 	float				m_fNextSceTime;
 	float				m_fGameTime;

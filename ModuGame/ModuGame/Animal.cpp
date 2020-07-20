@@ -13,12 +13,12 @@ void Animal::PointSet(DIRECTION  Holedirct)
 	case WEST:
 		break;
 	case NORTH:
+		m_Point.x = 16 * 9;
+		m_Point.y = 120;
 		break;
 	case SOUTH:
 		break;
 	case NORTHWEST:
-		m_Point.x = 20;
-		m_Point.y = 112;
 		break;
 	case NORTHEAST:
 		break;
@@ -37,13 +37,14 @@ void Mole::Init(DIRECTION  Holedirct)
 {
 	char ch[128];
 	
-	m_strName = "Mole";
+	m_eAnimalType = MOLE;
+	m_iMotionNum = 0;
 
 	for (int i = 0; i < 6; i++)
 	{
 		int randNum = rand() % 100;
 
-		sprintf(ch, "res\\moleMotion0%d", i);
+		sprintf(ch, "res\\moleMotion0%d.bmp", i);
 		string str(ch);
 		m_pMole[i] = JEngine::ResoucesManager::GetInstance()->GetBitmap(str);
 
@@ -56,20 +57,20 @@ void Mole::Init(DIRECTION  Holedirct)
 	}
 }
 
-void Mole::Draw(int motionNum)
+void Mole::Draw()
 {
 
-	m_strName = "Octopus";
-
-	switch (motionNum)
+	switch (m_iMotionNum)
 	{
 	case 0:
+		m_pMole[m_iMotionNum]->Draw(m_Point.x, m_Point.y * 1.6);
+		break;
 	case 1:
 	case 2:
 	case 3:
 	case 4:
 	case 5:
-		m_pMole[motionNum]->Draw(m_Point.x, m_Point.y);
+		m_pMole[m_iMotionNum]->Draw(m_Point.x, m_Point.y);
 		break;
 	default:
 		break;
@@ -78,13 +79,16 @@ void Mole::Draw(int motionNum)
 
 void Octopus::Init(DIRECTION  Holedirct)
 {
+	m_eAnimalType = OCTOPUS;
+	m_iMotionNum = 0;
+
 	char ch[128];
 
 	for (int i = 0; i < 2; i++)
 	{
 		int randNum = rand() % 100;
 
-		sprintf(ch, "res\\octopusMotion%d", i);
+		sprintf(ch, "res\\octopusMotion%d.bmp", i);
 		string str(ch);
 		m_pOctopus[i] = JEngine::ResoucesManager::GetInstance()->GetBitmap(str);
 	}
@@ -92,13 +96,13 @@ void Octopus::Init(DIRECTION  Holedirct)
 	PointSet(Holedirct);
 }
 
-void Octopus::Draw(int motionNum)
+void Octopus::Draw()
 {
-	switch (motionNum)
+	switch (m_iMotionNum)
 	{
 	case 0:
 	case 1:
-		m_pOctopus[motionNum]->Draw(m_Point.x, m_Point.y);
+		m_pOctopus[m_iMotionNum]->Draw(m_Point.x, m_Point.y);
 		break;
 	default:
 		break;

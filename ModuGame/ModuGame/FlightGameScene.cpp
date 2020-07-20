@@ -329,7 +329,7 @@ void FlightGameScene::Update(float fETime)
 				if (m_fNextSceTime > 4.0f)
 				{
 					if(m_iScore >= UserManager::GetInstance()->GetUser()->FlightScore)
-						UserManager::GetInstance()->GetUser()->SetUser(FLIGHT, m_iScore);
+						UserManager::GetInstance()->GetUser()->SetUser(FLIGHTGAME, m_iScore);
 					UserManager::GetInstance()->RankSort();
 					UserManager::GetInstance()->Save();
 					JEngine::SceneManager::GetInstance()->LoadScene(SCENE_INDEX_RANK);
