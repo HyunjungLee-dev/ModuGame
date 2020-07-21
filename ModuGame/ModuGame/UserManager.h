@@ -30,7 +30,7 @@
 				PaperScore = num;
 			else if (type == MOLEGAME)
 				MoleScore = num;
-			AllScore = PaperScore + FlightScore;
+			AllScore = PaperScore + FlightScore + MoleScore;
 		}
 
 		void Draw(int x, int y)

@@ -10,26 +10,61 @@ enum ANIMALTYPE
 	OCTOPUS
 };
 
+struct EffectObj
+{
+	JEngine::BitMap*	m_pFever[3];
+	JEngine::BitMap*    m_pExplosion[3];
 
-class Animal  //메모리풀 클래스 상속 | 오퍼레이터 new,del
+	void Init()
+	{
+		m_pExplosion[0] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\explosion1.bmp");
+		m_pExplosion[1] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\explosion2.bmp");
+		m_pExplosion[2] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\explosion3.bmp");
+		m_pFever[0] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\Fever1.bmp");
+		m_pFever[1] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\Fever2.bmp");
+		m_pFever[2] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\Fever3.bmp");
+	}
+};
+
+
+class Animal  
 {
 protected:
+	ANIMALSTATE m_eState;
 	ANIMALTYPE m_eAnimalType;
 	JEngine::POINT m_Point;
 	JEngine::RECT m_Rect;
 	int m_iMotionNum;
+	int m_iExplosion;
+	EffectObj* m_Effect;
 public:
 	virtual void Init(DIRECTION  Holedirct) = 0;
-	void PointSet(DIRECTION  Holedirct);
 	virtual void Draw() = 0;
-	Animal() {};
-	virtual ~Animal() {};
+
+	void PointSet(DIRECTION  Holedirct);
+	void Motion();
+
+	JEngine::RECT GetRect() { return m_Rect; }
+	ANIMALSTATE GetState() { return m_eState; }
+	int GetExplosion() { return m_iExplosion; }
+	ANIMALTYPE GetType() { return m_eAnimalType; }
+
+	void SetState(ANIMALSTATE state) { m_eState = state; }
+	void SetExplosion() { m_iExplosion ++; }
+
+	int GetMotionNum() { return m_iMotionNum; }
+
+	Animal() { 
+		m_Effect =  new EffectObj;
+		m_Effect->Init();
+	};
+	virtual ~Animal() {	delete m_Effect	;};
 };
 
 class  Mole : public Animal
 {
 private:
-	bool	m_bHaveBomb; // 랜덤확률 이용
+	bool	m_bHaveBomb; 
 	JEngine::BitMap*	m_pMole[6];
 public:
 	virtual void Init(DIRECTION  Holedirct) override;
@@ -44,7 +79,8 @@ private:
 class  Octopus  : public Animal
 {
 private:
-	JEngine::BitMap*	m_pOctopus[2];
+	JEngine::BitMap*	m_pOctopus[4];
+	JEngine::BitMap*	m_pInk[2];
 public:
 	virtual void Init(DIRECTION  Holedirct) override;
 	virtual void Draw() override;

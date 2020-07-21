@@ -4,7 +4,7 @@
 #include "JEngine.h"
 #include"Label.h"
 #include"UserManager.h"
-#include"AnimalList.h"
+#include"AnimalManager.h"
 
 
 
@@ -23,16 +23,15 @@ private:
 
 	JEngine::Label*		m_pGameTime;
 	JEngine::Label*		m_pScore;
-	JEngine::Label*		m_pCursor; // 임시
 
-	JEngine::POINT      m_MousePoint; // 임시
+	JEngine::POINT      m_MousePoint; 
 
 	FEVERSTATE			m_eFeverState;
 	FEVERSTATE			m_eUltraTime;
 
 	LoadingScene		m_LoadingSc;
 
-	AnimalList* m_pAnimalList;
+	AnimalManager*		m_pAnimalManager;
 
 	float				m_fNextSceTime;
 	float				m_fGameTime;
@@ -71,6 +70,10 @@ public:
 
 	void FeverUpdate(float fETime);
 	void DownFeverGauge();
+
+	void AnimalUpdate(float fETime);
+	void RandAnimalUpdate(float fETime);
+	void CollisionAnimal();
 
 	bool OnSelectCheck();
 

@@ -91,6 +91,10 @@ void FlightGameScene::Init(HWND hWnd)
 
 bool FlightGameScene::Input(float fETime)
 {
+	if (JEngine::InputManager::GetInstance()->isKeyDown(VK_LBUTTON))
+	{
+
+	}
 	return false;
 }
 

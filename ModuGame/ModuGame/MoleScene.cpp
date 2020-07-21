@@ -8,6 +8,7 @@
 
 MoleScene::MoleScene()
 {
+	m_pAnimalManager = nullptr;
 }
 
 MoleScene::~MoleScene()
@@ -36,6 +37,8 @@ void MoleScene::SetMember()
 	m_iScore = 0;
 	m_iFeverGauge = 0;
 	m_iBonusPoint = 100;
+
+
 }
 
 void MoleScene::Init(HWND hWnd)
@@ -47,12 +50,6 @@ void MoleScene::Init(HWND hWnd)
 
 
 	JEngine::InputManager::GetInstance()->Clear();
-	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_SPACE);
-	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_ESCAPE);
-	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_LEFT);
-	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_RIGHT);
-	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_UP);
-	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_DOWN);
 	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_LBUTTON);
 
 	m_pFrame = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\FlightGameBackTra.bmp");
@@ -74,10 +71,10 @@ void MoleScene::Init(HWND hWnd)
 
 	m_pGameTime = new JEngine::Label();
 	m_pScore = new JEngine::Label();
-	m_pCursor = new JEngine::Label();
 
-	m_pAnimalList = new AnimalList;
-	m_pAnimalList->Init();
+
+	m_pAnimalManager = new AnimalManager;
+	m_pAnimalManager->Init();
 
 	JEngine::UIManager::GetInstance()->AddButton(CLIENT_SIZE_WIDTH * 0.212, CLIENT_SIZE_HEIGHT * 0.845, "res\\check00.bmp", std::bind(&MoleScene::OnSelectCheck, this));
 
@@ -86,19 +83,74 @@ void MoleScene::Init(HWND hWnd)
 
 bool MoleScene::Input(float fETime)
 {
+	if (m_bGamePlay)
+	{
+		if (JEngine::InputManager::GetInstance()->isKeyDown(VK_LBUTTON))
+		{
+			m_MousePoint = JEngine::InputManager::GetInstance()->GetMousePoint();
+			CollisionAnimal();
+		}
+	}
 	return false;
+}
+
+void MoleScene::CollisionAnimal()
+{
+	m_bExplosion = false;
+
+	if (m_pAnimalManager->CollisionUpdate(m_MousePoint))
+	{
+		m_iScore += 9;
+		m_iFeverGauge += 10;
+		m_bExplosion = true;
+	}
+}
+
+void MoleScene::AnimalUpdate(float fETime)
+{
+	if (m_bExplosion)
+	{
+		m_fExplosionTime += fETime;
+	}
+
+	RandAnimalUpdate(fETime);
+	m_pAnimalManager->Update();
+	m_pAnimalManager->ExplosionDraw(&m_fExplosionTime);
+}
+
+void MoleScene::RandAnimalUpdate(float fETime)
+{
+	static float AnimalUpTime = 0.0f;
+	static float UpdateTime = 0.0f;
+
+	AnimalUpTime += fETime;
+	UpdateTime += fETime;
+
+	if (AnimalUpTime > 0.2f)
+	{
+		int randDirect = rand() % NONDIRECTION;
+		m_pAnimalManager->MotionSet(randDirect);
+		AnimalUpTime = 0.0f;
+	}
+
+	if (UpdateTime > 0.13f)
+	{
+		m_pAnimalManager->MotionUpdate();
+		UpdateTime = 0.0f;
+	}
+
 }
 
 
 
 void MoleScene::Update(float fETime)
 {
-	static float m_fScoreTime = 0.0f;
-
 	if (m_bGamePlay)
 	{
-		m_MousePoint = JEngine::InputManager::GetInstance()->GetMousePoint();
+
 		
+		AnimalUpdate(fETime);
+
 		if (m_fGameTime <= GetTickCount())
 		{
 			DownFeverGauge();
@@ -127,22 +179,10 @@ void MoleScene::Update(float fETime)
 		
 
 		//Fever
-		/*if (m_bFeverDown)
+		if (m_bFeverDown)
 			DownFeverGauge();
 		else
 			FeverUpdate(fETime);
-
-		m_fScoreTime += fETime;
-
-		if (m_fScoreTime > 1.0f && !m_bExplosion)
-		{
-			m_iScore += 3;
-			if (m_eFeverState != ULTRA)
-				m_iFeverGauge += 5;
-			m_fScoreTime = 0.0f;
-
-		}*/
-
 
 	}
 
@@ -294,12 +334,7 @@ void MoleScene::Draw(HDC hdc)
 		m_pBack->DrawBitblt(0, 90);
 
 
-		m_pAnimalList->Draw();
-
-		sprintf(ch, "%d , %d ", m_MousePoint.x, m_MousePoint.y);
-		string str(ch);
-		m_pCursor->Init(str, m_MousePoint.x + 10, m_MousePoint.y, DT_CENTER | DT_WORDBREAK);
-		m_pCursor->Draw();
+		m_pAnimalManager->Draw();
 
 
 		//Frame
@@ -318,7 +353,7 @@ void MoleScene::Draw(HDC hdc)
 
 		}
 
-	//	GameTimeDraw();
+		GameTimeDraw();
 		FeverTimeDraw();
 		return;
 	}
@@ -350,5 +385,6 @@ bool MoleScene::OnSelectCheck()
 
 void MoleScene::Release()
 {
-	delete m_pAnimalList;
+	if(m_pAnimalManager != nullptr)
+		delete m_pAnimalManager;
 }
