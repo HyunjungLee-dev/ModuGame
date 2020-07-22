@@ -145,8 +145,10 @@
     <ClInclude Include="AnimalManager.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="defines.h" />
+    <ClInclude Include="GameBase.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="NameScene.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="PaperGameScene.h" />
     <ClInclude Include="FlightGameScene.h" />
     <ClInclude Include="RankScene.h" />
@@ -159,8 +161,10 @@
   <ItemGroup>
     <ClCompile Include="Animal.cpp" />
     <ClCompile Include="AnimalManager.cpp" />
+    <ClCompile Include="GameBase.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="NameScene.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="PaperGameScene.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="FlightGameScene.cpp" />

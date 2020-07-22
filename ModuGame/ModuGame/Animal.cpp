@@ -119,7 +119,7 @@ void Mole::Draw()
 		}
 		else if (m_iExplosion != -1)
 		{
-			m_Effect->m_pExplosion[m_iExplosion]->Draw(DEFAULTX + m_Point.x, DEFAULTY + m_Point.y);
+			m_Effect->ExplosionDraw(m_iExplosion, DEFAULTX + m_Point.x, DEFAULTY + m_Point.y);
 		}
 
 	}
@@ -135,14 +135,7 @@ void Mole::StarDraw(int BonusNum)
 		m_bHaveStar = true;
 		m_bHaveBomb = false;
 
-		if (BonusNum >= 3000)
-			m_Effect->m_pBonusStar[STAR_BLUE]->Draw(StarX, StarY);
-		else if (BonusNum >= 1000)
-			m_Effect->m_pBonusStar[STAR_GREEN]->Draw(StarX, StarY);
-		else
-			m_Effect->m_pBonusStar[STAR_YELLOW]->Draw(StarX, StarY);
-		m_Effect->m_pBonusPoint->Init(to_string(BonusNum), StarX + 15, StarY + 15, DT_CENTER | DT_WORDBREAK);
-		m_Effect->m_pBonusPoint->Draw();
+		m_Effect->StarDraw(BonusNum, StarX + 15, StarY + 15, StarX, StarY);
 	}
 }
 
@@ -184,8 +177,8 @@ void Octopus::Draw()
 		}
 		else if (m_iExplosion != -1)
 		{
-			if(m_iExplosion == 0)
-				m_Effect->m_pExplosion[m_iExplosion]->Draw(DEFAULTX + m_Point.x, DEFAULTY + m_Point.y);
+			if (m_iExplosion == 0)
+				m_Effect->ExplosionDraw(m_iExplosion, DEFAULTX + m_Point.x, DEFAULTY + m_Point.y);
 			else
 				m_pInk[m_iExplosion-1]->Draw( m_Point.x,  m_Point.y);
 		}

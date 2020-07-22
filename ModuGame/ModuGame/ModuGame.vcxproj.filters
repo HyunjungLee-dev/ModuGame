@@ -13,73 +13,91 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="헤더 파일\FlightGame">
-      <UniqueIdentifier>{83b07dbc-422e-4022-8024-e3483cfeba0b}</UniqueIdentifier>
+    <Filter Include="헤더 파일\Shared">
+      <UniqueIdentifier>{dcd1b399-01e7-479d-8505-a71dbe8392ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\PaperGame">
-      <UniqueIdentifier>{f946f835-c6bf-4ab5-94f2-29ff64ecf42c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\FlightGame">
-      <UniqueIdentifier>{3020f318-0fae-4a4f-b46c-419d67bf7d0d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\PaperGame">
-      <UniqueIdentifier>{e4797424-846e-4bd5-9f97-4146c5c2a48c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Set">
+    <Filter Include="헤더 파일\Display">
       <UniqueIdentifier>{96527136-07a8-4e8b-92cc-7a6acb110f6a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Set">
-      <UniqueIdentifier>{5418eaf0-477b-4444-bc5b-df7644496a28}</UniqueIdentifier>
+    <Filter Include="헤더 파일\Game">
+      <UniqueIdentifier>{fa82a02c-352f-4f97-818a-f60e3a554170}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\whack_a_mole">
+    <Filter Include="헤더 파일\Game\FlightGame">
+      <UniqueIdentifier>{83b07dbc-422e-4022-8024-e3483cfeba0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Game\PaperGame">
+      <UniqueIdentifier>{f946f835-c6bf-4ab5-94f2-29ff64ecf42c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Game\whack_a_mole">
       <UniqueIdentifier>{97f4768d-d5e5-40b9-bc79-fa00dd8b1ab3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\whack_a_mole">
+    <Filter Include="소스 파일\Game">
+      <UniqueIdentifier>{8ba3830d-f2bf-482b-abe8-0272b701b357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Game\FlightGame">
+      <UniqueIdentifier>{3020f318-0fae-4a4f-b46c-419d67bf7d0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Game\PaperGame">
+      <UniqueIdentifier>{e4797424-846e-4bd5-9f97-4146c5c2a48c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Game\whack_a_mole">
       <UniqueIdentifier>{b06f2800-59a5-415e-bdbd-8733602ae327}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Shared">
+      <UniqueIdentifier>{81a161f7-597c-4d75-b5ac-ebd8e78d47f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Display">
+      <UniqueIdentifier>{5418eaf0-477b-4444-bc5b-df7644496a28}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h">
-      <Filter>헤더 파일\FlightGame</Filter>
+      <Filter>헤더 파일\Game\FlightGame</Filter>
     </ClInclude>
     <ClInclude Include="Star.h">
-      <Filter>헤더 파일\FlightGame</Filter>
+      <Filter>헤더 파일\Game\FlightGame</Filter>
     </ClInclude>
     <ClInclude Include="PaperGameScene.h">
-      <Filter>헤더 파일\PaperGame</Filter>
+      <Filter>헤더 파일\Game\PaperGame</Filter>
     </ClInclude>
     <ClInclude Include="NameScene.h">
-      <Filter>헤더 파일\Set</Filter>
+      <Filter>헤더 파일\Display</Filter>
     </ClInclude>
     <ClInclude Include="TitleScene.h">
-      <Filter>헤더 파일\Set</Filter>
+      <Filter>헤더 파일\Display</Filter>
     </ClInclude>
     <ClInclude Include="SelectScene.h">
-      <Filter>헤더 파일\Set</Filter>
+      <Filter>헤더 파일\Display</Filter>
     </ClInclude>
     <ClInclude Include="LoadingScene.h">
-      <Filter>헤더 파일\Set</Filter>
+      <Filter>헤더 파일\Display</Filter>
     </ClInclude>
     <ClInclude Include="FlightGameScene.h">
-      <Filter>헤더 파일\FlightGame</Filter>
+      <Filter>헤더 파일\Game\FlightGame</Filter>
     </ClInclude>
     <ClInclude Include="RankScene.h">
-      <Filter>헤더 파일\Set</Filter>
-    </ClInclude>
-    <ClInclude Include="defines.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UserManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Display</Filter>
     </ClInclude>
     <ClInclude Include="MoleScene.h">
-      <Filter>헤더 파일\whack_a_mole</Filter>
+      <Filter>헤더 파일\Game\whack_a_mole</Filter>
     </ClInclude>
     <ClInclude Include="Animal.h">
-      <Filter>헤더 파일\whack_a_mole</Filter>
+      <Filter>헤더 파일\Game\whack_a_mole</Filter>
     </ClInclude>
     <ClInclude Include="AnimalManager.h">
-      <Filter>헤더 파일\whack_a_mole</Filter>
+      <Filter>헤더 파일\Game\whack_a_mole</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>헤더 파일\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="GameBase.h">
+      <Filter>헤더 파일\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="UserManager.h">
+      <Filter>헤더 파일\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="defines.h">
+      <Filter>헤더 파일\Shared</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -87,37 +105,43 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="PaperGameScene.cpp">
-      <Filter>소스 파일\PaperGame</Filter>
+      <Filter>소스 파일\Game\PaperGame</Filter>
     </ClCompile>
     <ClCompile Include="NameScene.cpp">
-      <Filter>소스 파일\Set</Filter>
+      <Filter>소스 파일\Display</Filter>
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
-      <Filter>소스 파일\Set</Filter>
+      <Filter>소스 파일\Display</Filter>
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
-      <Filter>소스 파일\Set</Filter>
+      <Filter>소스 파일\Display</Filter>
     </ClCompile>
     <ClCompile Include="SelectScene.cpp">
-      <Filter>소스 파일\Set</Filter>
+      <Filter>소스 파일\Display</Filter>
     </ClCompile>
     <ClCompile Include="FlightGameScene.cpp">
-      <Filter>소스 파일\FlightGame</Filter>
+      <Filter>소스 파일\Game\FlightGame</Filter>
     </ClCompile>
     <ClCompile Include="RankScene.cpp">
-      <Filter>소스 파일\Set</Filter>
-    </ClCompile>
-    <ClCompile Include="UserManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Display</Filter>
     </ClCompile>
     <ClCompile Include="MoleScene.cpp">
-      <Filter>소스 파일\whack_a_mole</Filter>
+      <Filter>소스 파일\Game\whack_a_mole</Filter>
     </ClCompile>
     <ClCompile Include="Animal.cpp">
-      <Filter>소스 파일\whack_a_mole</Filter>
+      <Filter>소스 파일\Game\whack_a_mole</Filter>
     </ClCompile>
     <ClCompile Include="AnimalManager.cpp">
-      <Filter>소스 파일\whack_a_mole</Filter>
+      <Filter>소스 파일\Game\whack_a_mole</Filter>
+    </ClCompile>
+    <ClCompile Include="GameBase.cpp">
+      <Filter>소스 파일\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="UserManager.cpp">
+      <Filter>소스 파일\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>소스 파일\Shared</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@
 #include"LoadingScene.h"
 #include "Label.h"
 #include "JEngine.h"
+#include"GameBase.h"
 #include"defines.h"
 
 
@@ -18,47 +19,25 @@ struct Paper
 class PaperGameScene : public JEngine::Scene
 {
 private:
+	GameBase*			m_pGameBase;
+
 	JEngine::BitMap*	m_pBack;
 	JEngine::BitMap*	m_pRule;
-	JEngine::BitMap*	m_pTimeBar;
-	JEngine::BitMap*	m_pTimeOver;
 	JEngine::BitMap*	m_pColor[4];
-	JEngine::BitMap*	m_pFever[3];
-	JEngine::BitMap*	m_pBonusStar[3];
-	JEngine::BitMap*	m_pFeverEffect;
-
-	JEngine::Label*		m_pScore;
+	
 	JEngine::Label*		m_pPaperPoint;
-	JEngine::Label*		m_pGameTime;
-	LoadingScene		m_LoadingSc;
-
+	
 	Paper*				m_pColorPaper[4];
 	Paper*				m_pTurnPaper[2];
 
-	FEVERSTATE			m_eFeverState;
-	FEVERSTATE			m_eUltraTime;
-
-	float				m_fNextSceTime;
 	float				m_fMoveSpeed;
-	float				m_fGameTime;
-	float				m_fEffectTime;
-	float				m_fUltraTime;
-
-	bool				m_bLoading;
-	bool				m_bStart;
-	bool				m_bGamePlay;
+	
 	bool				m_bMoveing;
 	bool				m_bSame;
-	bool				m_bFeverTime;
-	bool				m_bTimeOver;
-	bool				m_bFeverDown;
-
 
 	int					m_iComboCount;
-	int					m_iBonusPoint;
-	int					m_iScore;
 	int					m_iPaperPoint;
-	int					m_iFeverGauge;
+
 
 
 
@@ -76,13 +55,6 @@ public:
 	void SlidePaper(float fETime);
 	void NotSameMotion(float fETime);
 	void IsSameColor(bool bSame);
-
-	void GameTimeDraw();
-	void ScoreDraw();
-	void FeverTimeDraw();
-
-	void FeverUpdate(float fETime);
-	void DownFeverGauge();
 
 	bool OnSelectCheck();
 

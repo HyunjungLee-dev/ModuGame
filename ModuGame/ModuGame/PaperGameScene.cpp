@@ -9,48 +9,26 @@
 
 PaperGameScene::PaperGameScene()
 {
-
-	
+	m_pGameBase = NULL;
 }
 
 PaperGameScene::~PaperGameScene()
 {
 }
 
-void PaperGameScene::SetMember()
-{
-	m_bLoading = false;
-	m_bStart = false;
-	m_bMoveing = false;
-	m_bGamePlay = false;
-	m_bSame = true;
-	m_bFeverTime = false;
-	m_bTimeOver = false;
-	m_bFeverDown = false;
-
-
-	m_fNextSceTime = 0.0f;
-	m_fUltraTime = 0.0f;
-
-
-	m_eFeverState = BASIC;
-	m_eUltraTime = ULTRA;
-
-	m_iBonusPoint = 100;
-	m_iScore = 0;
-	m_iComboCount = 0;
-	m_iPaperPoint = 90;
-	m_fMoveSpeed = 1000;
-	m_iFeverGauge = 0;
-}
 
 void PaperGameScene::Init(HWND hWnd)
 {
-	SetMember();
+	m_pGameBase = new GameBase;
+	m_pGameBase->Init(hWnd);
+
+	m_bMoveing = false;
+	m_bSame = true;
+	m_iComboCount = 0;
+	m_iPaperPoint = 90;
+	m_fMoveSpeed = 1000;
 
 	JEngine::InputManager::GetInstance()->Clear();
-	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_SPACE);
-	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_ESCAPE);
 	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_LEFT);
 	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_RIGHT);
 	JEngine::InputManager::GetInstance()->RegistKeyCode(VK_UP);
@@ -66,26 +44,11 @@ void PaperGameScene::Init(HWND hWnd)
 	m_pColor[RED] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\ColoredPaperRed.bmp");
 	m_pColor[YELLOW] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\ColoredPaperYellow.bmp");
 
-	m_pFever[0] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\Fever1.bmp");
-	m_pFever[1] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\Fever2.bmp");
-	m_pFever[2] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\Fever3.bmp");
-
-	m_pBonusStar[0] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\FlightGameStar1.bmp");
-	m_pBonusStar[1] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\FlightGameStar2.bmp");
-	m_pBonusStar[2] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\FlightGameStar3.bmp");
-
-	m_pFeverEffect = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\FeverEffect3.bmp");
-	m_pTimeBar = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\ColoredPaperTimeBar.bmp");
-	m_pTimeOver = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\TimeOver.bmp");
-
-
-	m_pScore = new JEngine::Label();
+	
 	m_pPaperPoint = new JEngine::Label();
-	m_pGameTime = new JEngine::Label();
 
 	JEngine::UIManager::GetInstance()->AddButton(CLIENT_SIZE_WIDTH * 0.212, CLIENT_SIZE_HEIGHT * 0.846, "res\\check00.bmp", std::bind(&PaperGameScene::OnSelectCheck, this));
 
-	m_LoadingSc.Init(hWnd);
 	SetColorPaper();
 	SetTurnPaper();
 }
@@ -128,38 +91,13 @@ void PaperGameScene::Update(float fETime)
 	TCHAR str[128];
 
 
-	if (m_bGamePlay)
+	if (m_pGameBase->GetGamePlay())
 	{
-		if (m_fGameTime <= GetTickCount())
-		{
-			DownFeverGauge();
-			m_bTimeOver = true;
-			m_bFeverDown = true;
-			m_fNextSceTime += fETime;
-			if (m_fNextSceTime > 1.0f)
-			{
-				m_bStart = true;
-			}
-			if (m_bStart)
-			{
-				m_LoadingSc.Update(fETime);
-				if (m_fNextSceTime > 4.0f)
-				{
-					if (m_iScore >= UserManager::GetInstance()->GetUser()->PaperScore)
-						UserManager::GetInstance()->GetUser()->SetUser(PAPERGAME, m_iScore);
-					UserManager::GetInstance()->RankSort();
-					UserManager::GetInstance()->Save();
-					JEngine::SceneManager::GetInstance()->LoadScene(SCENE_INDEX_RANK);
-					SetMember();
-				}
-			}
+		m_pGameBase->GameEnd(PAPERGAME, fETime);
+		if (m_pGameBase->GetTimeover())
 			return;
-		}
 
-		if (m_bFeverDown)
-			DownFeverGauge();
-		else
-			FeverUpdate(fETime);
+		m_pGameBase->FeverStateCheck(fETime);
 
 		if (m_bMoveing)
 		{
@@ -170,11 +108,11 @@ void PaperGameScene::Update(float fETime)
 
 			if (!m_bSame)
 			{
-				m_fNextSceTime += fETime;
+				m_pGameBase->SetNextTime(fETime,ADD);
 				NotSameMotion(fETime);
-				if (m_fNextSceTime > 0.5f)
+				if (m_pGameBase->GetNextTime() > 0.5f)
 				{
-					m_fNextSceTime = 0.0f;
+					m_pGameBase->SetNextTime(0.0f,SET);
 					m_bSame = true;
 					m_pTurnPaper[NOW]->m_fPaperX = 150.0f;
 					m_pTurnPaper[NOW]->m_fPaperY = 300.0f;
@@ -183,147 +121,15 @@ void PaperGameScene::Update(float fETime)
 		}
 	}
 
-	if (m_bStart)
-	{
-		m_fNextSceTime += fETime;
-		m_LoadingSc.Update(fETime);
-		if (m_fNextSceTime > 3.0f)
-		{
-			m_fNextSceTime = 0.0f;
-			m_bStart = false;
-			m_bGamePlay = true;
-			m_fGameTime = GetTickCount() + 45000;
-		}
-	}
+	m_pGameBase->GameStart(fETime);
 
 
 }
 
-void PaperGameScene::FeverUpdate(float fETime)
-{
-
-	if (m_iFeverGauge > 100 && m_eFeverState != ULTRA)
-	{
-		int tmp = 100 - m_iFeverGauge;
-		if (m_eFeverState == BASIC)
-		{
-			m_bFeverTime = true;
-			m_eFeverState = SUPER;
-		}
-		else if (m_eFeverState == SUPER)
-		{
-			m_eFeverState = ULTRA;
-			m_iFeverGauge = 99;
-			return;
-		}
-		m_iFeverGauge = abs(tmp);
-	}
-
-	if (m_bFeverTime)
-	{
-		m_fEffectTime += fETime;
-		if (m_eFeverState == ULTRA)
-		{
-			m_fUltraTime += fETime;
-			m_fNextSceTime += fETime;
-			if (m_fNextSceTime > 0.1f)
-			{
-				if (m_eUltraTime == ULTRA)
-					m_eUltraTime = BASIC;
-				else
-					m_eUltraTime = ULTRA;
-				m_fNextSceTime = 0.0f;
-			}
-
-			if (m_fUltraTime > 5.0f)
-			{
-				m_eUltraTime = BASIC;
-				m_bFeverDown = true;
-			}
-		}
-	}
-	else
-		m_fEffectTime = 0.0f;
-}
-
-void PaperGameScene::DownFeverGauge()
-{
-	m_iFeverGauge -= 1;
-	if (m_iFeverGauge <= 0)
-	{
-		m_iFeverGauge = 0;
-		m_eFeverState = BASIC;
-		m_bFeverTime = false;
-		m_fUltraTime = 0.0f;
-		m_bFeverDown = false;
-	}
-}
-
-void PaperGameScene::GameTimeDraw()
-{
-	char ch[128];
-
-	float time = (m_fGameTime - GetTickCount()) / 1000.0f;
-	int sec = (int)(m_fGameTime - GetTickCount()) / 1000.0f;
-	int sec2 = (int)((time - sec) * 100);
-
-	if (sec < 10)
-		sprintf(ch, "0%d : %d ", sec, sec2);
-	else
-		sprintf(ch, "%d : %d ", sec, sec2);
-	string str(ch);
-	m_pGameTime->Init(str, 40, 620, DT_CENTER | DT_WORDBREAK);
-	m_pTimeBar->StretchDraw(25, 620, ((m_fGameTime - GetTickCount()) / 1000.0f) / 45, 1);
-
-	m_pGameTime->Draw();
-}
-
-void PaperGameScene::ScoreDraw()
-{
-	m_pScore->Init(to_string(m_iScore), CLIENT_SIZE_WIDTH * 0.48, CLIENT_SIZE_HEIGHT * 0.03, DT_CENTER | DT_WORDBREAK);
-	m_pScore->Draw();
-}
-
-
-void PaperGameScene::FeverTimeDraw()
-{
-	if (m_bFeverDown)
-	{
-		m_pFever[BASIC]->StretchDraw(20, 55, m_iFeverGauge / 100.0f, 1);
-		return;
-	}
-
-	if (m_bFeverTime)
-	{
-		if (m_fEffectTime > 0.1f)
-		{
-			m_pFeverEffect->Draw(0, 0);
-			m_fEffectTime = 0.0f;
-		}
-	}
-	if (m_eFeverState != ULTRA)
-	{
-		if (m_eFeverState > BASIC)
-			m_pFever[BASIC]->Draw(20, 55);
-		m_pFever[m_eFeverState]->StretchDraw(20, 55, m_iFeverGauge / 100.0f, 1);
-	}
-	else
-	{
-		if (m_fUltraTime > 10.0f)
-		{
-			if (m_eUltraTime == BASIC)
-				m_pFever[m_eUltraTime]->StretchDraw(20, 55, m_iFeverGauge / 100.0f, 1);
-		}
-		else
-			m_pFever[m_eUltraTime]->Draw(20, 55);
-	}
-}
 
 void PaperGameScene::Draw(HDC hdc)
 {
-
-
-	if (m_bGamePlay)
+	if (m_pGameBase->GetGamePlay())
 	{
 
 		m_pBack->DrawBitblt(0, 0);
@@ -333,43 +139,23 @@ void PaperGameScene::Draw(HDC hdc)
 		m_pColor[m_pTurnPaper[NEXT]->m_eColor]->Draw(m_pTurnPaper[NEXT]->m_fPaperX, m_pTurnPaper[NEXT]->m_fPaperY);
 		m_pColor[m_pTurnPaper[NOW]->m_eColor]->Draw(m_pTurnPaper[NOW]->m_fPaperX, m_pTurnPaper[NOW]->m_fPaperY);
 
-		if ((m_iComboCount > 0 && m_iComboCount % 5 == 0)|| m_bFeverTime)
+		if ((m_iComboCount > 0 && m_iComboCount % 5 == 0)|| m_pGameBase->GetFeverTime())
 		{
 			float CenterX = m_pTurnPaper[NOW]->m_fPaperX + m_pColor[m_pTurnPaper[NOW]->m_eColor]->GetWidth()*0.4;
 			float CenterY = m_pTurnPaper[NOW]->m_fPaperY + m_pColor[m_pTurnPaper[NOW]->m_eColor]->GetHeight()*0.4;
 
-			if (m_iBonusPoint >= 3000)
-				m_pBonusStar[STAR_BLUE]->Draw((int)CenterX - 15,(int)CenterY - 20);
-			else if(m_iBonusPoint >= 1000)
-				m_pBonusStar[STAR_GREEN]->Draw((int)CenterX - 15, (int)CenterY - 20);
-			else
-				m_pBonusStar[STAR_YELLOW]->Draw((int)CenterX - 15, (int)CenterY - 20);
-			m_pPaperPoint->Init(to_string(m_iBonusPoint),(int) CenterX,(int)CenterY, DT_CENTER | DT_WORDBREAK);
-			m_pPaperPoint->Draw();
+			m_pGameBase->StarDraw((int)CenterX, (int)CenterY, (int)CenterX - 15, (int)CenterY - 20);
 		}
 
-		ScoreDraw();
-		FeverTimeDraw();
-
-		if (m_bTimeOver && m_iFeverGauge == 0)
-		{
-			m_pTimeOver->Draw(CLIENT_SIZE_WIDTH * 0.2, CLIENT_SIZE_HEIGHT * 0.4);
-			if (m_bStart)
-			{
-				m_LoadingSc.Draw(hdc);
-			}
-			return;
-
-		}
-
-		GameTimeDraw();
+		m_pGameBase->DisplayDraw(hdc);
 		return;
 	}
 
-	if (m_bStart )
+	//추가
+	if (m_pGameBase->GetStart())
 	{
 		m_pRule->DrawBitblt(0, 0);
-		m_LoadingSc.Draw(hdc);
+		m_pGameBase->LoadingDraw(hdc);
 	}
 	else 
 	{
@@ -505,21 +291,20 @@ void PaperGameScene::IsSameColor(bool bSame)
 		m_pTurnPaper[NEXT]->m_eColor = ((PAPER_COLOR)(rand() % 4));
 		//콤보일 경우 피버 추가로 더 올리고 아닐 경우는 그냥
 		//5번 콤보 마다 보너스 -> 피버는 계속
-		if ((m_iComboCount > 0 && m_iComboCount % 5 == 0 ) || m_bFeverTime)
+		if ((m_iComboCount > 0 && m_iComboCount % 5 == 0 ) || m_pGameBase->GetFeverTime())
 		{
-			if(m_eFeverState != ULTRA)
-				m_iFeverGauge += 20;
-			m_iScore += m_iBonusPoint;
-			m_iBonusPoint += 100;
-			if (m_iBonusPoint > 5000)
-				m_iBonusPoint = 5000;
+			if(m_pGameBase->GetFeverState() != ULTRA)
+				m_pGameBase->SetFeverGauge(20,ADD);
+			m_pGameBase->AddScore();
+			m_pGameBase->SetBonusPoint(100,ADD);
+			if (m_pGameBase->GetBonusPoint() > 5000)
+				m_pGameBase->SetBonusPoint(5000,SET);
 		}
 		else
 		{
-
-			m_iFeverGauge += 10;
+			m_pGameBase->SetFeverGauge(10,ADD);
 			//스코어 추가
-			m_iScore += m_iPaperPoint;
+			m_pGameBase->AddScore(m_iPaperPoint);
 		}
 		//콤보 올리기
 		m_iComboCount++;
@@ -529,16 +314,16 @@ void PaperGameScene::IsSameColor(bool bSame)
 	else
 	{
 		
-		if (m_eFeverState != ULTRA)
+		if (m_pGameBase->GetFeverState() != ULTRA)
 		{
 			//피버 감소
-			m_iFeverGauge -= 30;
-			if (m_iFeverGauge < 0)
-				m_iFeverGauge = 0;
+			m_pGameBase->SetFeverGauge(-30,ADD);
+			if (m_pGameBase->GetFeverGauge() < 0)
+				m_pGameBase->SetFeverGauge(0,SET);
 		}
 		//콤보0
 		m_iComboCount = 0;
-		m_iBonusPoint = 100;
+		m_pGameBase->SetBonusPoint(100,SET);
 		//리턴 진동
 		m_bSame = false;
 
@@ -589,10 +374,16 @@ void PaperGameScene::NotSameMotion(float fETime)
 
 bool PaperGameScene::OnSelectCheck()
 {
-	m_bStart = true;
+	m_pGameBase->SetStart(true);
 	return true;
 }
 
 void PaperGameScene::Release()
 {
+
+	if (m_pGameBase != NULL)
+	{
+		delete m_pGameBase;
+		m_pGameBase = NULL;
+	}
 }

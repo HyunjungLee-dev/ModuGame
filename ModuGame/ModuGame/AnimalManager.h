@@ -21,7 +21,6 @@ public:
 
 	void ExplosionDraw(float fETime);
 	void StarDraw(int Bonus);
-	void FeverStar(int BonusPoint);
 	ANIMALTYPE CollisionUpdate(JEngine::POINT mpoint);
 	void MotionUpdate();
 	void MotionSet(int Direction);

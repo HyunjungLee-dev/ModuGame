@@ -96,10 +96,7 @@ ANIMALTYPE AnimalManager::CollisionUpdate(JEngine::POINT mpoint)
 	return NONETYPE;
 }
 
-void AnimalManager::FeverStar(int Bonus)
-{
 
-}
 
 	 
 void AnimalManager:: Draw()
