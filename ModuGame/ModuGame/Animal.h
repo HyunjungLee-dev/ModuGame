@@ -7,22 +7,33 @@
 enum ANIMALTYPE
 {
 	MOLE,
-	OCTOPUS
+	OCTOPUS,
+	BOMBMOLE,
+	NONETYPE,
 };
 
 struct EffectObj
 {
 	JEngine::BitMap*	m_pFever[3];
 	JEngine::BitMap*    m_pExplosion[3];
+	JEngine::BitMap*	m_pBonusStar[3];
+	JEngine::Label*		m_pBonusPoint;
 
 	void Init()
 	{
 		m_pExplosion[0] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\explosion1.bmp");
 		m_pExplosion[1] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\explosion2.bmp");
 		m_pExplosion[2] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\explosion3.bmp");
+
 		m_pFever[0] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\Fever1.bmp");
 		m_pFever[1] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\Fever2.bmp");
 		m_pFever[2] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\Fever3.bmp");
+
+		m_pBonusStar[0] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\FlightGameStar1.bmp");
+		m_pBonusStar[1] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\FlightGameStar2.bmp");
+		m_pBonusStar[2] = JEngine::ResoucesManager::GetInstance()->GetBitmap("res\\FlightGameStar3.bmp");
+
+		m_pBonusPoint = new JEngine::Label();
 	}
 };
 
@@ -65,10 +76,13 @@ class  Mole : public Animal
 {
 private:
 	bool	m_bHaveBomb; 
+	bool	m_bHaveStar;
 	JEngine::BitMap*	m_pMole[6];
 public:
 	virtual void Init(DIRECTION  Holedirct) override;
 	virtual void Draw() override;
+	void StarDraw(int BonusNum);
+	bool GethaveBomb() { return m_bHaveBomb; }
 	Mole() {};
 	virtual ~Mole() {};
 

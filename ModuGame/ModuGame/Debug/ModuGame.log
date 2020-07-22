@@ -1,87 +1,13 @@
-﻿  FlightGameScene.cpp
-d:\github\modugame\modugame\modugame\bullet.h(30): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\star.h(58): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\star.h(59): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(79): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(80): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(84): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(87): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(121): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(126): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(130): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(138): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(221): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(225): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(228): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(236): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(309): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(313): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(354): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(355): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(391): warning C4244: '=': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(459): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(468): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(472): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+﻿  Animal.cpp
+d:\github\modugame\modugame\modugame\animal.cpp(99): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 'sprintf' 선언을 참조하십시오.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(474): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+d:\github\modugame\modugame\modugame\animal.cpp(133): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\github\modugame\modugame\modugame\animal.cpp(134): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\github\modugame\modugame\modugame\animal.cpp(163): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 'sprintf' 선언을 참조하십시오.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(523): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(524): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\flightgamescene.cpp(561): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  LoadingScene.cpp
-d:\github\modugame\modugame\modugame\loadingscene.cpp(13): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-d:\github\modugame\modugame\modugame\loadingscene.cpp(14): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-d:\github\modugame\modugame\modugame\loadingscene.cpp(48): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-  Main.cpp
-d:\github\modugame\modugame\modugame\bullet.h(30): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\star.h(58): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\star.h(59): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\main.cpp(22): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  MoleScene.cpp
-d:\github\modugame\modugame\modugame\molescene.cpp(79): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\molescene.cpp(199): warning C4244: '=': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\molescene.cpp(267): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\molescene.cpp(276): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\molescene.cpp(280): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+d:\github\modugame\modugame\modugame\animal.cpp(167): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 'sprintf' 선언을 참조하십시오.
-d:\github\modugame\modugame\modugame\molescene.cpp(282): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 'sprintf' 선언을 참조하십시오.
-d:\github\modugame\modugame\modugame\molescene.cpp(347): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\molescene.cpp(327): warning C4101: 'ch' :참조되지 않은 지역 변수입니다.
-  NameScene.cpp
-d:\github\modugame\modugame\modugame\namescene.cpp(38): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\namescene.cpp(86): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\namescene.cpp(88): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  PaperGameScene.cpp
-d:\github\modugame\modugame\modugame\papergamescene.cpp(86): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(195): warning C4244: '=': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(128): warning C4101: 'str' :참조되지 않은 지역 변수입니다.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(267): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(271): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 'sprintf' 선언을 참조하십시오.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(273): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 'sprintf' 선언을 참조하십시오.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(283): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(333): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(334): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(338): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(339): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(356): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(555): warning C4554: '&': 연산자 우선 순위에 오류가 있는지 확인하세요. 괄호를 사용하여 우선 순위를 명확하게 지정하세요.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(562): warning C4554: '&': 연산자 우선 순위에 오류가 있는지 확인하세요. 괄호를 사용하여 우선 순위를 명확하게 지정하세요.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(572): warning C4554: '&': 연산자 우선 순위에 오류가 있는지 확인하세요. 괄호를 사용하여 우선 순위를 명확하게 지정하세요.
-d:\github\modugame\modugame\modugame\papergamescene.cpp(579): warning C4554: '&': 연산자 우선 순위에 오류가 있는지 확인하세요. 괄호를 사용하여 우선 순위를 명확하게 지정하세요.
-  RankScene.cpp
-d:\github\modugame\modugame\modugame\rankscene.cpp(40): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  SelectScene.cpp
-d:\github\modugame\modugame\modugame\selectscene.cpp(32): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\selectscene.cpp(33): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\selectscene.cpp(34): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\selectscene.cpp(66): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\selectscene.cpp(69): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\github\modugame\modugame\modugame\selectscene.cpp(72): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  UserManager.cpp
-d:\github\modugame\modugame\modugame\usermanager.cpp(15): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\github\modugame\modugame\modugame\usermanager.cpp(24): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  AnimalManager.cpp
+d:\github\modugame\modugame\modugame\animalmanager.cpp(174): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   코드를 생성하고 있습니다...
   ModuGame.vcxproj -> D:\Github\ModuGame\ModuGame\Debug\ModuGame.exe

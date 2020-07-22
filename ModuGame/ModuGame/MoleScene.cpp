@@ -8,7 +8,7 @@
 
 MoleScene::MoleScene()
 {
-	m_pAnimalManager = nullptr;
+	m_pAnimalManager = NULL;
 }
 
 MoleScene::~MoleScene()
@@ -32,6 +32,7 @@ void MoleScene::SetMember()
 	m_eFeverState = BASIC;
 	m_eUltraTime = ULTRA;
 
+	m_fUltraTime = 0.0f;
 	m_fNextSceTime = 0.0f;
 	m_fExplosionTime = 0.0f;
 	m_iScore = 0;
@@ -96,26 +97,57 @@ bool MoleScene::Input(float fETime)
 
 void MoleScene::CollisionAnimal()
 {
-	m_bExplosion = false;
+	m_bFeverDown = false;
 
-	if (m_pAnimalManager->CollisionUpdate(m_MousePoint))
+	ANIMALTYPE CollisionType = m_pAnimalManager->CollisionUpdate(m_MousePoint);
+	
+	if (CollisionType == MOLE)
 	{
-		m_iScore += 9;
-		m_iFeverGauge += 10;
-		m_bExplosion = true;
+		if (m_bFeverTime)
+		{
+			m_iScore += m_iBonusPoint;
+			m_iBonusPoint += 100;
+			m_iFeverGauge += 20;
+		}
+		else
+		{
+			m_iScore += 9;
+			m_iFeverGauge += 10;
+		}
 	}
+	else if (CollisionType == OCTOPUS)
+	{
+		m_bFeverDown = true;
+		m_iBonusPoint = 100;
+	}
+	else if (CollisionType == BOMBMOLE)
+	{
+		int BombNum = m_pAnimalManager->BombMole();
+		for (int i = 0; i < BombNum; i++)
+		{
+			if (m_bFeverTime)
+			{
+				m_iScore += m_iBonusPoint;
+				m_iBonusPoint += 100;
+				m_iFeverGauge += 20;
+			}
+			else
+			{
+				m_iScore += 9;
+				m_iFeverGauge += 10;
+			}
+		}
+	}
+	else
+		return;
 }
 
 void MoleScene::AnimalUpdate(float fETime)
 {
-	if (m_bExplosion)
-	{
-		m_fExplosionTime += fETime;
-	}
-
 	RandAnimalUpdate(fETime);
+	m_pAnimalManager->ExplosionDraw(fETime);
 	m_pAnimalManager->Update();
-	m_pAnimalManager->ExplosionDraw(&m_fExplosionTime);
+
 }
 
 void MoleScene::RandAnimalUpdate(float fETime)
@@ -126,9 +158,9 @@ void MoleScene::RandAnimalUpdate(float fETime)
 	AnimalUpTime += fETime;
 	UpdateTime += fETime;
 
-	if (AnimalUpTime > 0.2f)
+	if (AnimalUpTime > 0.1f)
 	{
-		int randDirect = rand() % NONDIRECTION;
+		int randDirect = rand() % (NONDIRECTION + 1);
 		m_pAnimalManager->MotionSet(randDirect);
 		AnimalUpTime = 0.0f;
 	}
@@ -335,6 +367,8 @@ void MoleScene::Draw(HDC hdc)
 
 
 		m_pAnimalManager->Draw();
+		if(m_bFeverTime)
+			m_pAnimalManager->StarDraw(m_iBonusPoint);
 
 
 		//Frame
@@ -385,6 +419,6 @@ bool MoleScene::OnSelectCheck()
 
 void MoleScene::Release()
 {
-	if(m_pAnimalManager != nullptr)
+	if(m_pAnimalManager != NULL)
 		delete m_pAnimalManager;
 }

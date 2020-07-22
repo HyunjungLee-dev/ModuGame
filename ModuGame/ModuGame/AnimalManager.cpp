@@ -57,7 +57,23 @@ void AnimalManager::Reset(DIRECTION dirct)
 	m_pAnimalList[dirct]->Init(dirct);
 }
 
-bool AnimalManager::CollisionUpdate(JEngine::POINT mpoint)
+int AnimalManager::BombMole()
+{
+	int MoleCount = 0;
+
+	for (vector<Animal*>::iterator iter = m_pAnimalList.begin(); iter != m_pAnimalList.end(); iter++)
+	{
+		if ((*iter)->GetType() == MOLE && (*iter)->GetMotionNum() > -1)
+		{
+			(*iter)->SetExplosion();
+			MoleCount++;
+		}
+	}
+
+	return MoleCount;
+}
+
+ANIMALTYPE AnimalManager::CollisionUpdate(JEngine::POINT mpoint)
 {
 	for (vector<Animal*>::iterator iter = m_pAnimalList.begin(); iter != m_pAnimalList.end(); iter++)
 	{
@@ -67,10 +83,22 @@ bool AnimalManager::CollisionUpdate(JEngine::POINT mpoint)
 		if ((*iter)->GetMotionNum() >= 2 && AnimalRect.isPtin(mpoint))
 		{
 			(*iter)->SetExplosion();
-			return true;
+			if ((*iter)->GetType() == MOLE)
+			{
+				Mole* mole = dynamic_cast<Mole*>(*iter);
+				if (mole->GethaveBomb())
+					return BOMBMOLE;
+			}
+			return (*iter)->GetType();
+
 		}
 	}
-	return false;
+	return NONETYPE;
+}
+
+void AnimalManager::FeverStar(int Bonus)
+{
+
 }
 
 	 
@@ -82,28 +110,45 @@ void AnimalManager:: Draw()
 	}
  }
 
-void AnimalManager::ExplosionDraw(float *fETime)
+void AnimalManager::ExplosionDraw(float fETime)
 {
+
+	static  float ExplosionTime = 0.0f;
+
+
 	for (vector<Animal*>::iterator iter = m_pAnimalList.begin(); iter != m_pAnimalList.end(); iter++)
 	{
 		if ((*iter)->GetExplosion() >= 0)
 		{
+			ExplosionTime += fETime;
 			if ((*iter)->GetType() == OCTOPUS && (*iter)->GetExplosion() == 2)
 			{
-				if(*fETime > 0.4f)
+				if(ExplosionTime > 0.4f)
 				{
 					(*iter)->SetExplosion();
-					*fETime = 0.0f;
+					ExplosionTime = 0.0f;
 				}
 			}
 			else
 			{
-				if (*fETime > 0.1f)
+				if (ExplosionTime > 0.1f)
 				{
 					(*iter)->SetExplosion();
-					*fETime = 0.0f;
+					ExplosionTime = 0.0f;
 				}
 			}
+		}
+	}
+}
+
+void AnimalManager::StarDraw(int Bonus)
+{
+	for (vector<Animal*>::iterator iter = m_pAnimalList.begin(); iter != m_pAnimalList.end(); iter++)
+	{
+		if ((*iter)->GetType() == MOLE)
+		{
+			Mole* mole = dynamic_cast<Mole*>(*iter);
+			mole->StarDraw(Bonus);
 		}
 	}
 }
@@ -134,10 +179,6 @@ void AnimalManager::Update()
 			Reset((DIRECTION)i);
 		}
 	}
-
-	//·£´ý À§Ä¡
-
-
 }
 
 void AnimalManager::Release()

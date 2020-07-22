@@ -84,6 +84,7 @@ void Mole::Init(DIRECTION  Holedirct)
 	m_iMotionNum = -1;
 	m_eState = ANIMALNONE;
 	m_iExplosion = -1;
+	m_bHaveStar = false;
 
 
 	int randNum = rand() % 100;
@@ -120,8 +121,29 @@ void Mole::Draw()
 		{
 			m_Effect->m_pExplosion[m_iExplosion]->Draw(DEFAULTX + m_Point.x, DEFAULTY + m_Point.y);
 		}
-	}
 
+	}
+}
+
+void Mole::StarDraw(int BonusNum)
+{
+	if (m_iMotionNum > 2)
+	{
+
+		int StarX = DEFAULTX + m_Point.x + SIZEX * 0.25;
+		int StarY = DEFAULTY + m_Point.y + SIZEY * 0.6;
+		m_bHaveStar = true;
+		m_bHaveBomb = false;
+
+		if (BonusNum >= 3000)
+			m_Effect->m_pBonusStar[STAR_BLUE]->Draw(StarX, StarY);
+		else if (BonusNum >= 1000)
+			m_Effect->m_pBonusStar[STAR_GREEN]->Draw(StarX, StarY);
+		else
+			m_Effect->m_pBonusStar[STAR_YELLOW]->Draw(StarX, StarY);
+		m_Effect->m_pBonusPoint->Init(to_string(BonusNum), StarX + 15, StarY + 15, DT_CENTER | DT_WORDBREAK);
+		m_Effect->m_pBonusPoint->Draw();
+	}
 }
 
 void Octopus::Init(DIRECTION  Holedirct)

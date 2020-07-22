@@ -1,2 +1,18 @@
-﻿  EngineMain.cpp
-  Lib.vcxproj -> D:\winapi\모두의 게임 자료\작업\ModuGame\Debug\Lib.lib
+﻿  BitMap.cpp
+d:\github\modugame\modugame\lib\bitmap.cpp(53): warning C4244: '-=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\github\modugame\modugame\lib\bitmap.cpp(54): warning C4244: '-=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\github\modugame\modugame\lib\bitmap.cpp(78): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Button.cpp
+  EngineMain.cpp
+  InputManager.cpp
+  Label.cpp
+  POINT.cpp
+  ResoucesManager.cpp
+  Scene.cpp
+  SceneManager.cpp
+  TimeManager.cpp
+d:\github\modugame\modugame\lib\timemanager.cpp(32): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  UIManager.cpp
+  UIObject.cpp
+  코드를 생성하고 있습니다...
+  Lib.vcxproj -> D:\Github\ModuGame\ModuGame\Debug\Lib.lib
