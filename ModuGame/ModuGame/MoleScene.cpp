@@ -8,8 +8,6 @@
 
 MoleScene::MoleScene()
 {
-	m_pAnimalManager = NULL;
-	m_pGameBase = NULL;
 }
 
 MoleScene::~MoleScene()
@@ -196,15 +194,5 @@ bool MoleScene::OnSelectCheck()
 
 void MoleScene::Release()
 {
-	if (m_pAnimalManager != NULL)
-	{
-		delete m_pAnimalManager;
-		m_pAnimalManager = NULL;
-	}
 
-
-	if (m_pGameBase != NULL)
-	{
-		delete m_pGameBase;
-	}
 }

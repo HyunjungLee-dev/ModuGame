@@ -15,7 +15,6 @@
 
 
 
-
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow)
 {
 	//엔진 객체를 생성하고 타이틀과 윈도우 사이즈를 넣어준다.
@@ -30,7 +29,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	JEngine::SceneManager::GetInstance()->RegistScene(new NameScene);
 	JEngine::SceneManager::GetInstance()->RegistScene(new RankScene);
 	JEngine::SceneManager::GetInstance()->RegistScene(new MoleScene);
-
 
 
 	//엔진 시작

@@ -9,7 +9,6 @@
 
 PaperGameScene::PaperGameScene()
 {
-	m_pGameBase = NULL;
 }
 
 PaperGameScene::~PaperGameScene()
@@ -381,9 +380,4 @@ bool PaperGameScene::OnSelectCheck()
 void PaperGameScene::Release()
 {
 
-	if (m_pGameBase != NULL)
-	{
-		delete m_pGameBase;
-		m_pGameBase = NULL;
-	}
 }

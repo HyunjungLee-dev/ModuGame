@@ -64,7 +64,6 @@ namespace JEngine
 
 		SceneManager::GetInstance()->Release();
 
-
 		return (int)Message.wParam;
 	}
 

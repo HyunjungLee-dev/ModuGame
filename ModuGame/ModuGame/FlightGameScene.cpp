@@ -8,7 +8,6 @@
 
 FlightGameScene::FlightGameScene()
 {
-	m_pGameBase = NULL;
 }
 
 FlightGameScene::~FlightGameScene()
@@ -405,11 +404,5 @@ void FlightGameScene::Release()
 
 	//star
 	StarListClear();
-
-	if (m_pGameBase != NULL)
-	{
-		delete m_pGameBase;
-		m_pGameBase = NULL;
-	}
 
 }
